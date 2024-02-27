@@ -9,5 +9,11 @@ import java.util.List;
 public interface CategoriesMapper {
     List<Categories> getAllCategories();
 
+    Categories findCategoryById(Integer id);
+
     void insertCategory(Categories category);
+
+    void updateCategory(Categories category);
+
+    void deleteCategory(Integer id);
 }

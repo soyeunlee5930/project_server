@@ -6,6 +6,10 @@
         SELECT * FROM categories;
     </select>
 
+    <select id="findCategoryById" resultType="project.project.model.Categories" parameterType="java.lang.Integer">
+        SELECT * FROM categories WHERE id= #{id}
+    </select>
+
     <insert id="insertCategory" parameterType="project.project.model.Categories">
         INSERT INTO categories (category_name) VALUES (#{category_name})
     </insert>

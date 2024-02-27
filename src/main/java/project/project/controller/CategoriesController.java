@@ -19,8 +19,25 @@ public class CategoriesController {
     public List<Categories> getAll() {
         return categoriesService.getAllCategories();
     }
+
+    @GetMapping("/categories/{id}")
+    public Categories findCategoryById(@PathVariable Integer id) {
+        return categoriesService.findCategoryById(id);
+    }
+
     @PostMapping("/categories/add")
     public void insertCategory(@RequestBody Categories category) {
         categoriesService.insertCategory(category);
+    }
+
+    @PutMapping("/categories/{id}")
+    public void updateCategory(@PathVariable Integer id, @RequestBody Categories category) {
+        category.setId(id);
+        categoriesService.updateCategory(category);
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public void deleteCategory(@PathVariable Integer id) {
+        categoriesService.deleteCategory(id);
     }
 }

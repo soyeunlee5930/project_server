@@ -18,7 +18,22 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
+    public Categories findCategoryById(Integer id) {
+        return categoriesMapper.findCategoryById(id);
+    }
+
+    @Override
     public void insertCategory(Categories category) {
         categoriesMapper.insertCategory(category);
+    }
+
+    @Override
+    public void updateCategory(Categories category) {
+        categoriesMapper.updateCategory(category);
+    }
+
+    @Override
+    public void deleteCategory(Integer id) {
+        categoriesMapper.deleteCategory(id);
     }
 }
