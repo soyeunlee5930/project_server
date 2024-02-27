@@ -11,23 +11,23 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/rest")
+@RequestMapping(value="/admins")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     private UsersService usersService;
 
-    @GetMapping("/all")
+    @GetMapping("/users/all")
     public List<Users> getAll() {
         return usersService.findAll();
     }
 
-    @GetMapping("/userInfo")
+    @GetMapping("/users/userInfo")
     public List<Users> getUserInfo() {
         return usersService.findUserInfo();
     }
 
-    @GetMapping("/insert")
+    @GetMapping("/users/insert")
     public String insertUser() {
         Users newUser = new Users();
 
