@@ -7,7 +7,10 @@
     </select>
 
     <select id="findUserInfo" resultType="project.project.model.Users">
-        SELECT * FROM users WHERE no=1
+        SELECT * FROM users WHERE id=1
     </select>
 
+    <insert id="insertUser" parameterType="project.project.model.Users">
+        INSERT INTO users (user_id, pwd, name, phone_num, email, gender, birth, state) VALUES (#{user_id}, #{pwd}, #{name}, #{phone_num}, #{email}, #{gender}, #{birth}, #{state})
+    </insert>
 </mapper>

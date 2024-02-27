@@ -1,0 +1,20 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.CategoriesMapper">
+
+    <select id="getAllCategories" resultType="project.project.model.Categories">
+        SELECT * FROM categories;
+    </select>
+
+    <insert id="insertCategory" parameterType="project.project.model.Categories">
+        INSERT INTO categories (category_name) VALUES (#{category_name})
+    </insert>
+
+    <update id="updateCategory" parameterType="project.project.model.Categories">
+        UPDATE categories SET category_name = #{category_name} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCategory" parameterType="java.lang.Integer">
+        DELETE FROM categories WHERE id = #{id}
+    </delete>
+</mapper>
