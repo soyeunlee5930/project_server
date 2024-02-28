@@ -1,0 +1,40 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.SubCategoriesMapper">
+
+    <!-- resultMap 정의 -->
+    <resultMap id="categoriesResultMap" type="project.project.model.Categories">
+        <id property="id" column="id" />
+        <result property="category_name" column="category_name" />
+        <collection property="category_name" resultMap="categoriesResultMap"/>
+    </resultMap>
+
+    <resultMap id="subCategoriesResultMap" type="project.project.model.SubCategories">
+        <id property="id" column="id" />
+        <result property="sub_category_name" column="sub_category_name" />
+        <result property="category_id" column="category_id" />
+    </resultMap>
+
+    <!-- 모든 서브 카테고리와 카테고리 이름을 가져오는 SQL 쿼리 -->
+    <select id="getAllSubCategories" resultMap="subCategoriesResultMap">
+        SELECT sc.*, c.category_name
+        FROM sub_categories sc
+        LEFT JOIN categories c ON sc.category_id = c.id;
+    </select>
+
+    <select id="findSubCategoryById" resultType="project.project.model.SubCategories" parameterType="java.lang.Integer">
+        SELECT * FROM sub_categories WHERE id= #{id}
+    </select>
+
+    <insert id="insertSubCategory" parameterType="project.project.model.SubCategories">
+        INSERT INTO sub_categories (sub_category_name, category_id) VALUES (#{sub_category_name}, #{category_id})
+    </insert>
+
+    <update id="updateSubCategory" parameterType="project.project.model.SubCategories">
+        UPDATE sub_categories SET sub_category_name = #{sub_category_name}, category_id = #{category_id} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteSubCategory" parameterType="java.lang.Integer">
+        DELETE FROM sub_categories WHERE id = #{id}
+    </delete>
+</mapper>
