@@ -21,4 +21,5 @@
     <delete id="deleteCategory" parameterType="java.lang.Integer">
         DELETE FROM categories WHERE id = #{id}
     </delete>
+
 </mapper>

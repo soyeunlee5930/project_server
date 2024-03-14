@@ -37,4 +37,9 @@
     <delete id="deleteSubCategory" parameterType="java.lang.Integer">
         DELETE FROM sub_categories WHERE id = #{id}
     </delete>
+
+    <!-- 메인 카테고리와 관련된 서브 카테고리 삭제 -->
+    <delete id="deleteSubCategoriesByCategoryId" parameterType="java.lang.Integer">
+        DELETE FROM sub_categories WHERE category_id = #{id};
+    </delete>
 </mapper>
