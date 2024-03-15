@@ -26,6 +26,11 @@
         SELECT * FROM sub_categories WHERE id= #{id}
     </select>
 
+    <!-- 서브카테고리 이름 중복값 확인 -->
+    <select id="countByName" resultType="int" parameterType="project.project.model.SubCategories">
+        SELECT COUNT(*) FROM sub_categories WHERE sub_category_name = #{sub_category_name} AND category_id = #{category_id}
+    </select>
+
     <insert id="insertSubCategory" parameterType="project.project.model.SubCategories">
         INSERT INTO sub_categories (sub_category_name, category_id) VALUES (#{sub_category_name}, #{category_id})
     </insert>

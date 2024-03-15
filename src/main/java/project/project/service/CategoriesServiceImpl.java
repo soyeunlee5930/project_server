@@ -27,6 +27,11 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
+    public int countByName (String category_name) {
+        return categoriesMapper.countByName(category_name);
+    }
+
+    @Override
     public void insertCategory(Categories category) {
         categoriesMapper.insertCategory(category);
     }

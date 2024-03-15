@@ -24,6 +24,11 @@ public class SubCategoriesServiceImpl implements SubCategoriesService {
     }
 
     @Override
+    public int countByName(SubCategories subCategories) {
+        return subCategoriesMapper.countByName(subCategories);
+    }
+
+    @Override
     public void insertSubCategory(SubCategories subCategory) {
         subCategoriesMapper.insertSubCategory(subCategory);
     }

@@ -1,6 +1,8 @@
 package project.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.project.model.Categories;
 import project.project.service.CategoriesService;
@@ -26,14 +28,26 @@ public class CategoriesController {
     }
 
     @PostMapping("/categories/add")
-    public void insertCategory(@RequestBody Categories category) {
+    public ResponseEntity<String> insertCategory(@RequestBody Categories category) {
+        // 중복값 확인
+        int count = categoriesService.countByName(category.getCategory_name());
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate category_name");
+        }
         categoriesService.insertCategory(category);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/categories/{id}")
-    public void updateCategory(@PathVariable Integer id, @RequestBody Categories category) {
+    public ResponseEntity<String> updateCategory(@PathVariable Integer id, @RequestBody Categories category) {
         category.setId(id);
+        // 중복값 확인
+        int count = categoriesService.countByName(category.getCategory_name());
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate category_name");
+        }
         categoriesService.updateCategory(category);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/categories/{id}")

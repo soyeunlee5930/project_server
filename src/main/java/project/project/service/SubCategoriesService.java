@@ -10,6 +10,8 @@ public interface SubCategoriesService {
 
     SubCategories findSubCategoryById(Integer id);
 
+    int countByName(SubCategories subCategories);
+
     void insertSubCategory(SubCategories subCategory);
 
     void updateSubCategory(SubCategories subCategory);

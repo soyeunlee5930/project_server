@@ -11,6 +11,8 @@ public interface CategoriesMapper {
 
     Categories findCategoryById(Integer id);
 
+    int countByName(String category_name);
+
     void insertCategory(Categories category);
 
     void updateCategory(Categories category);

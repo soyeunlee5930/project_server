@@ -10,6 +10,11 @@
         SELECT * FROM categories WHERE id= #{id}
     </select>
 
+    <!-- 카테고리 이름 중복값 확인 -->
+    <select id="countByName" resultType="int" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM categories WHERE category_name = #{category_name}
+    </select>
+
     <insert id="insertCategory" parameterType="project.project.model.Categories">
         INSERT INTO categories (category_name) VALUES (#{category_name})
     </insert>

@@ -1,6 +1,8 @@
 package project.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.project.model.SubCategories;
 import project.project.service.SubCategoriesService;
@@ -26,14 +28,26 @@ public class SubCategoriesController {
     }
 
     @PostMapping("/subcategories/add")
-    public void insertSubCategory(@RequestBody SubCategories subCategory) {
+    public ResponseEntity<String> insertSubCategory(@RequestBody SubCategories subCategory) {
+        // 중복값 확인
+        int count = subCategoriesService.countByName(subCategory);
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate sub-category");
+        }
         subCategoriesService.insertSubCategory(subCategory);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/subcategories/{id}")
-    public void updateSubCategory(@PathVariable Integer id, @RequestBody SubCategories subCategory) {
+    public ResponseEntity<String> updateSubCategory(@PathVariable Integer id, @RequestBody SubCategories subCategory) {
         subCategory.setId(id);
+        // 중복값 확인
+        int count = subCategoriesService.countByName(subCategory);
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate sub-category");
+        }
         subCategoriesService.updateSubCategory(subCategory);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/subcategories/{id}")
