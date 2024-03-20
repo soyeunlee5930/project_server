@@ -18,13 +18,19 @@ public class SubCategoriesController {
     private SubCategoriesService subCategoriesService;
 
     @GetMapping("/subcategories")
-    public List<SubCategories> getAllSubCategories() {
-        return subCategoriesService.getAllSubCategories();
+    public ResponseEntity<List<SubCategories>> getAllSubCategories() {
+        List<SubCategories> subCategories = subCategoriesService.getAllSubCategories();
+        return ResponseEntity.ok().body(subCategories);
     }
 
     @GetMapping("/subcategories/{id}")
-    public SubCategories findSubCategoryById(@PathVariable Integer id) {
-        return subCategoriesService.findSubCategoryById(id);
+    public ResponseEntity<SubCategories> findSubCategoryById(@PathVariable Integer id) {
+        SubCategories subCategory = subCategoriesService.findSubCategoryById(id);
+        if (subCategory != null) {
+            return ResponseEntity.ok().body(subCategory);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping("/subcategories/add")
@@ -51,7 +57,8 @@ public class SubCategoriesController {
     }
 
     @DeleteMapping("/subcategories/{id}")
-    public void deleteSubCategory(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteSubCategory(@PathVariable Integer id) {
         subCategoriesService.deleteSubCategory(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

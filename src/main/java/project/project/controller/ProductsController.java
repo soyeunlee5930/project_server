@@ -1,6 +1,7 @@
 package project.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ public class ProductsController {
     private ProductsService productsService;
 
     @GetMapping("/products")
-    public List<Products> getAllProducts() {
-        return productsService.getAllProducts();
+    public ResponseEntity<List<Products>> getAllProducts() {
+        List<Products> products = productsService.getAllProducts();
+        return ResponseEntity.ok(). body(products);
     }
 }

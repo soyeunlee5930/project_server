@@ -1,5 +1,6 @@
 package project.project.controller;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,19 @@ public class CategoriesController {
     private CategoriesService categoriesService;
 
     @GetMapping("/categories")
-    public List<Categories> getAll() {
-        return categoriesService.getAllCategories();
+    public ResponseEntity<List<Categories>> getAll() {
+        List<Categories> categories = categoriesService.getAllCategories();
+        return ResponseEntity.ok().body(categories);
     }
 
     @GetMapping("/categories/{id}")
-    public Categories findCategoryById(@PathVariable Integer id) {
-        return categoriesService.findCategoryById(id);
+    public ResponseEntity<Categories> findCategoryById(@PathVariable Integer id) {
+        Categories category = categoriesService.findCategoryById(id);
+        if (category != null) {
+            return ResponseEntity.ok().body(category);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping("/categories/add")
@@ -51,7 +58,8 @@ public class CategoriesController {
     }
 
     @DeleteMapping("/categories/{id}")
-    public void deleteCategory(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id) {
         categoriesService.deleteCategory(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

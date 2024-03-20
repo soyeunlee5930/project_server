@@ -1,7 +1,11 @@
 package project.project.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import project.project.model.Users;
 import project.project.service.UsersService;
@@ -18,31 +22,33 @@ public class UserController {
     private UsersService usersService;
 
     @GetMapping("/users/all")
-    public List<Users> getAll() {
-        return usersService.findAll();
+    public ResponseEntity<List<Users>> getAll() {
+        List<Users> users = usersService.findAll();
+        return ResponseEntity.ok().body(users);
     }
 
     @GetMapping("/users/userInfo")
-    public List<Users> getUserInfo() {
-        return usersService.findUserInfo();
+    public ResponseEntity<List<Users>> getUserInfo() {
+        List<Users> user = usersService.findUserInfo();
+        return ResponseEntity.ok().body(user);
     }
 
     @GetMapping("/users/insert")
-    public String insertUser() {
+    public ResponseEntity<String> insertUser() {
         Users newUser = new Users();
 
-        newUser.setUser_id("park123");
-        newUser.setPwd("park123");
-        newUser.setName("park");
-        newUser.setPhone_num("010-5555-6666");
-        newUser.setEmail("park123@test.com");
-        newUser.setGender(0);
-        newUser.setBirth(LocalDate.of(1998,3,22));
+        newUser.setUser_id("leee123");
+        newUser.setPwd("leee123");
+        newUser.setName("leee");
+        newUser.setPhone_num("010-7777-8888");
+        newUser.setEmail("leee123@test.com");
+        newUser.setGender(1);
+        newUser.setBirth(LocalDate.of(1979,7,4));
         newUser.setState(1);
 
         usersService.insertUser(newUser);
 
-        return "success";
+        return ResponseEntity.status(HttpStatus.CREATED).body("success");
     }
 
 }
