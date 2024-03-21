@@ -1,9 +1,11 @@
-package project.project.model;
+package project.project.requestParam;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Products {
+public class ProductsParam {
+
+    // @RequestBody에 담을 컬럼만 작성, image관련 컬럼은 @RequestParam을 사용할 예정
     private Integer id;
     private String product_name;
     private Integer category_id;
@@ -14,9 +16,6 @@ public class Products {
     private BigDecimal accumulated_amount;
     private String product_code;
     private Integer delivery_country;
-    private String product_description;
-    private String thumnail_image_url;
-    private String detail_image_url;
     private Date created_at;
     private Date updated_at;
 
@@ -98,30 +97,6 @@ public class Products {
 
     public void setDelivery_country(Integer delivery_country) {
         this.delivery_country = delivery_country;
-    }
-
-    public String getProduct_description() {
-        return product_description;
-    }
-
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
-    }
-
-    public String getThumnail_image_url() {
-        return thumnail_image_url;
-    }
-
-    public void setThumnail_image_url(String thumnail_image_url) {
-        this.thumnail_image_url = thumnail_image_url;
-    }
-
-    public String getDetail_image_url() {
-        return detail_image_url;
-    }
-
-    public void setDetail_image_url(String detail_image_url) {
-        this.detail_image_url = detail_image_url;
     }
 
     public Date getCreated_at() {

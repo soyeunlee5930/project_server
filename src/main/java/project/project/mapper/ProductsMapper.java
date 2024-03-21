@@ -2,6 +2,7 @@ package project.project.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import project.project.model.Products;
+import project.project.requestParam.ProductsParam;
 
 import java.util.List;
 
@@ -9,4 +10,5 @@ import java.util.List;
 public interface ProductsMapper {
     List<Products> getAllProducts();
 
+    void insertProduct(ProductsParam product);
 }
