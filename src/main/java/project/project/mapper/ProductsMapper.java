@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProductsMapper {
     List<Products> getAllProducts();
 
-    void insertProduct(ProductsParam product);
+    void insertProduct(ProductsParam product, String file1, String file2, List<String> file3);
 }
