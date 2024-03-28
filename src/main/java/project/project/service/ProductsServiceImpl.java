@@ -20,7 +20,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public void insertProduct(ProductsParam product, String file1, String file2, List<String> file3) {
-        productsMapper.insertProduct(product, file1, file2, file3);
+    public void insertProduct(ProductsParam product, String productDescriptionUrl, String thumnailImgUrl, List<String> detailImgUrls) {
+        productsMapper.insertProduct(product, productDescriptionUrl, thumnailImgUrl, detailImgUrls);
     }
 }

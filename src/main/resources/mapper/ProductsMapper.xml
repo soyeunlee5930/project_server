@@ -7,7 +7,7 @@
     </select>
 
     <insert id="insertProduct" parameterType="project.project.model.Products">
-        INSERT INTO products (product_name, sub_category_id, discount_rate, price, discount_price, quantity, accumulated_amount, product_code, delivery_country, product_description, thumnail_image_url, detail_image_url, created_at, updated_at) VALUES (#{product_name}, #{sub_category_id}, #{discount_rate}, #{price}, #{discount_price}, #{quantity}, #{accumulated_amount}, #{product_code}, #{delivery_country}, #{product_description}, #{thumnail_image_url}, #{detail_image_url}, now(), null)
+        INSERT INTO products (product_name, category_id, discount_rate, price, discount_price, quantity, accumulated_amount, product_code, delivery_country, product_description, thumnail_image_url, detail_image_url, created_at, updated_at) VALUES (#{product_name}, #{category_id}, #{discount_rate}, #{price}, #{discount_price}, #{quantity}, #{accumulated_amount}, #{product_code}, #{delivery_country}, #{product_description}, #{thumnail_image_url}, #{detail_image_url}, now(), null)
     </insert>
 
 <!--    <update id="updateProduct" parameterType="project.project.model.Products">-->
