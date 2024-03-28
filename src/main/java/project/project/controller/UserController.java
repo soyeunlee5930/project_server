@@ -37,10 +37,10 @@ public class UserController {
     public ResponseEntity<String> insertUser() {
         Users newUser = new Users();
 
-        newUser.setUser_id("leee123");
+        newUser.setUserId("leee123");
         newUser.setPwd("leee123");
         newUser.setName("leee");
-        newUser.setPhone_num("010-7777-8888");
+        newUser.setPhoneNum("010-7777-8888");
         newUser.setEmail("leee123@test.com");
         newUser.setGender(1);
         newUser.setBirth(LocalDate.of(1979,7,4));

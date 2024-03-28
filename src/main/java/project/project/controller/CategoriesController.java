@@ -37,9 +37,9 @@ public class CategoriesController {
     @PostMapping("/categories/add")
     public ResponseEntity<String> insertCategory(@RequestBody Categories category) {
         // 중복값 확인
-        int count = categoriesService.countByName(category.getCategory_name());
+        int count = categoriesService.countByName(category.getCategoryName());
         if (count > 0) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate category_name");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate categoryName");
         }
         categoriesService.insertCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -49,9 +49,9 @@ public class CategoriesController {
     public ResponseEntity<String> updateCategory(@PathVariable Integer id, @RequestBody Categories category) {
         category.setId(id);
         // 중복값 확인
-        int count = categoriesService.countByName(category.getCategory_name());
+        int count = categoriesService.countByName(category.getCategoryName());
         if (count > 0) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate category_name");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate categoryName");
         }
         categoriesService.updateCategory(category);
         return ResponseEntity.status(HttpStatus.CREATED).build();

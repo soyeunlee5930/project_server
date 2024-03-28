@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.project.requestParam.ProductsParam;
 import project.project.s3.S3Uploader;
 import project.project.model.Products;
+import project.project.service.ProductsParamService;
 import project.project.service.ProductsService;
 
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class ProductsController {
     @Autowired
     private S3Uploader s3Uploader;
 
+    @Autowired
+    private ProductsParamService productsParamService;
+
     @GetMapping("/products")
     public ResponseEntity<List<Products>> getAllProducts() {
         List<Products> products = productsService.getAllProducts();
@@ -32,21 +36,22 @@ public class ProductsController {
 
     @PostMapping("/products/add")
     public ResponseEntity<ProductsParam> insertProduct(@ModelAttribute ProductsParam product,
-                                                       @RequestParam("productDescription") MultipartFile product_description,
-                                                       @RequestParam("thumnailImg") MultipartFile thumnail_image_url,
-                                                       @RequestParam("detailImg") List<MultipartFile> detail_image_url) {
+                                                       @RequestParam("productDescription") MultipartFile productDescription,
+                                                       @RequestParam("thumnailImg") MultipartFile thumnailImageUrl,
+                                                       @RequestParam("detailImg") List<MultipartFile> detailImageUrl) {
 
         try {
+            ProductsParam productInfo = productsParamService.insertProductParam(product);
             // 이미지 S3 업로드
-            String productDescriptionUrl = s3Uploader.uploadFiles(product_description, "image2024");
-            String thumnailImgUrl = s3Uploader.uploadFiles(thumnail_image_url, "image2024");
+            String productDescriptionUrl = s3Uploader.uploadFiles(productDescription, "image2024");
+            String thumnailImgUrl = s3Uploader.uploadFiles(thumnailImageUrl, "image2024");
             List<String> detailImgUrls = new ArrayList<>();
-            for (MultipartFile detailImgFile : detail_image_url) {
+            for (MultipartFile detailImgFile : detailImageUrl) {
                 String detailImgUrl = s3Uploader.uploadFiles(detailImgFile, "image2024");
                 detailImgUrls.add(detailImgUrl);
             }
 
-            productsService.insertProduct(product, productDescriptionUrl, thumnailImgUrl, detailImgUrls);
+            productsService.insertProduct(productInfo, productDescriptionUrl, thumnailImgUrl, detailImgUrls);
             return ResponseEntity.status(HttpStatus.CREATED).body(product);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

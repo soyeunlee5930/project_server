@@ -38,7 +38,7 @@ public class SubCategoriesController {
         // 중복값 확인
         int count = subCategoriesService.countByName(subCategory);
         if (count > 0) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate sub-category");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate subCategory");
         }
         subCategoriesService.insertSubCategory(subCategory);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -50,7 +50,7 @@ public class SubCategoriesController {
         // 중복값 확인
         int count = subCategoriesService.countByName(subCategory);
         if (count > 0) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate sub-category");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Duplicate subCategory");
         }
         subCategoriesService.updateSubCategory(subCategory);
         return ResponseEntity.status(HttpStatus.CREATED).build();

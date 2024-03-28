@@ -10,7 +10,7 @@ public interface CategoriesService {
 
     Categories findCategoryById(Integer id);
 
-    int countByName(String category_name);
+    int countByName(String categoryName);
 
     void insertCategory(Categories category);
 

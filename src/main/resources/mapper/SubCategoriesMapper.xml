@@ -5,14 +5,14 @@
     <!-- resultMap 정의 -->
     <resultMap id="categoriesResultMap" type="project.project.model.Categories">
         <id property="id" column="id" />
-        <result property="category_name" column="category_name" />
-        <collection property="category_name" resultMap="categoriesResultMap"/>
+        <result property="categoryName" column="category_name" />
+        <collection property="categoryName" resultMap="categoriesResultMap"/>
     </resultMap>
 
     <resultMap id="subCategoriesResultMap" type="project.project.model.SubCategories">
         <id property="id" column="id" />
-        <result property="sub_category_name" column="sub_category_name" />
-        <result property="category_id" column="category_id" />
+        <result property="subCategoryName" column="sub_category_name" />
+        <result property="categoryId" column="category_id" />
     </resultMap>
 
     <!-- 모든 서브 카테고리와 카테고리 이름을 가져오는 SQL 쿼리 -->

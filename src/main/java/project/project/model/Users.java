@@ -7,10 +7,10 @@ import java.time.LocalDate;
 public class Users {
 
     private Integer id;
-    private String user_id;
+    private String userId;
     private String pwd;
     private String name;
-    private String phone_num;
+    private String phoneNum;
     private String email;
     private Integer gender; // 0 : 남성, 1 : 여성
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -25,12 +25,12 @@ public class Users {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPwd() {
@@ -49,12 +49,12 @@ public class Users {
         this.name = name;
     }
 
-    public String getPhone_num() {
-        return phone_num;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setPhone_num(String phone_num) {
-        this.phone_num = phone_num;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getEmail() {

@@ -5,20 +5,20 @@ import java.time.LocalDateTime;
 
 public class Products {
     private Integer id;
-    private String product_name;
-    private Integer category_id;
-    private Integer discount_rate;
+    private String productName;
+    private Integer categoryId;
+    private Integer discountRate;
     private BigDecimal price;
-    private BigDecimal discount_price;
+    private BigDecimal discountPrice;
     private Integer quantity;
-    private BigDecimal accumulated_amount;
-    private String product_code;
-    private Integer delivery_country;
-    private String product_description;
-    private String thumnail_image_url;
-    private String detail_image_url;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
+    private BigDecimal accumulatedAmount;
+    private String productCode;
+    private Integer deliveryCountry;
+    private String productDescription;
+    private String thumnailImageUrl;
+    private String detailImageUrl;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Integer getId() {
         return id;
@@ -28,28 +28,28 @@ public class Products {
         this.id = id;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Integer getDiscount_rate() {
-        return discount_rate;
+    public Integer getDiscountRate() {
+        return discountRate;
     }
 
-    public void setDiscount_rate(Integer discount_rate) {
-        this.discount_rate = discount_rate;
+    public void setDiscountRate(Integer discountRate) {
+        this.discountRate = discountRate;
     }
 
     public BigDecimal getPrice() {
@@ -60,12 +60,12 @@ public class Products {
         this.price = price;
     }
 
-    public BigDecimal getDiscount_price() {
-        return discount_price;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setDiscount_price(BigDecimal discount_price) {
-        this.discount_price = discount_price;
+    public void setDiscountPrice(BigDecimal discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public Integer getQuantity() {
@@ -76,67 +76,67 @@ public class Products {
         this.quantity = quantity;
     }
 
-    public BigDecimal getAccumulated_amount() {
-        return accumulated_amount;
+    public BigDecimal getAccumulatedAmount() {
+        return accumulatedAmount;
     }
 
-    public void setAccumulated_amount(BigDecimal accumulated_amount) {
-        this.accumulated_amount = accumulated_amount;
+    public void setAccumulatedAmount(BigDecimal accumulatedAmount) {
+        this.accumulatedAmount = accumulatedAmount;
     }
 
-    public String getProduct_code() {
-        return product_code;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setProduct_code(String product_code) {
-        this.product_code = product_code;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
-    public Integer getDelivery_country() {
-        return delivery_country;
+    public Integer getDeliveryCountry() {
+        return deliveryCountry;
     }
 
-    public void setDelivery_country(Integer delivery_country) {
-        this.delivery_country = delivery_country;
+    public void setDeliveryCountry(Integer deliveryCountry) {
+        this.deliveryCountry = deliveryCountry;
     }
 
-    public String getProduct_description() {
-        return product_description;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setProduct_description(String product_description) {
-        this.product_description = product_description;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public String getThumnail_image_url() {
-        return thumnail_image_url;
+    public String getThumnailImageUrl() {
+        return thumnailImageUrl;
     }
 
-    public void setThumnail_image_url(String thumnail_image_url) {
-        this.thumnail_image_url = thumnail_image_url;
+    public void setThumnailImageUrl(String thumnailImageUrl) {
+        this.thumnailImageUrl = thumnailImageUrl;
     }
 
-    public String getDetail_image_url() {
-        return detail_image_url;
+    public String getDetailImageUrl() {
+        return detailImageUrl;
     }
 
-    public void setDetail_image_url(String detail_image_url) {
-        this.detail_image_url = detail_image_url;
+    public void setDetailImageUrl(String detailImageUrl) {
+        this.detailImageUrl = detailImageUrl;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

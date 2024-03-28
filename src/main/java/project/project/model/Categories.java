@@ -2,7 +2,7 @@ package project.project.model;
 
 public class Categories {
     private Integer id;
-    private String category_name;
+    private String categoryName;
 
     public Integer getId() {
         return id;
@@ -12,11 +12,11 @@ public class Categories {
         this.id = id;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
