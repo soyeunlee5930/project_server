@@ -37,13 +37,13 @@ public class UserController {
     public ResponseEntity<String> insertUser() {
         Users newUser = new Users();
 
-        newUser.setUserId("leee123");
-        newUser.setPwd("leee123");
-        newUser.setName("leee");
-        newUser.setPhoneNum("010-7777-8888");
-        newUser.setEmail("leee123@test.com");
+        newUser.setUserId("choi123");
+        newUser.setPwd("choi123");
+        newUser.setName("choi");
+        newUser.setPhoneNum("010-9999-0000");
+        newUser.setEmail("choi123@test.com");
         newUser.setGender(1);
-        newUser.setBirth(LocalDate.of(1979,7,4));
+        newUser.setBirth(LocalDate.of(1988,3,16));
         newUser.setState(1);
 
         usersService.insertUser(newUser);

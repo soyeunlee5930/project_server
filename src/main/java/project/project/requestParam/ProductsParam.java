@@ -1,31 +1,28 @@
 package project.project.requestParam;
 
-import org.springframework.cglib.core.Local;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ProductsParam {
 
-    // @RequestBody에 담을 컬럼만 작성, image관련 컬럼은 @RequestParam을 사용할 예정
-    private Integer id;
+    // @ModelAttribute에 담을 컬럼만 작성, image관련 컬럼은 @RequestParam을 사용할 예정
+    private int id;
     private String productName;
-    private Integer categoryId;
-    private Integer discountRate;
-    private BigDecimal price;
-    private BigDecimal discountPrice;
-    private Integer quantity;
-    private BigDecimal accumulatedAmount;
+    private int categoryId;
+    private int discountRate;
+    private int price;
+    private int discountPrice;
+    private int quantity;
+    private int accumulatedAmount;
     private String productCode;
-    private Integer deliveryCountry;
+    private int deliveryCountry;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,51 +34,51 @@ public class ProductsParam {
         this.productName = productName;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Integer getDiscountRate() {
+    public int getDiscountRate() {
         return discountRate;
     }
 
-    public void setDiscountRate(Integer discountRate) {
+    public void setDiscountRate(int discountRate) {
         this.discountRate = discountRate;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public int getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(int discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getAccumulatedAmount() {
+    public int getAccumulatedAmount() {
         return accumulatedAmount;
     }
 
-    public void setAccumulatedAmount(BigDecimal accumulatedAmount) {
+    public void setAccumulatedAmount(int accumulatedAmount) {
         this.accumulatedAmount = accumulatedAmount;
     }
 
@@ -93,11 +90,11 @@ public class ProductsParam {
         this.productCode = productCode;
     }
 
-    public Integer getDeliveryCountry() {
+    public int getDeliveryCountry() {
         return deliveryCountry;
     }
 
-    public void setDeliveryCountry(Integer deliveryCountry) {
+    public void setDeliveryCountry(int deliveryCountry) {
         this.deliveryCountry = deliveryCountry;
     }
 

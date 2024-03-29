@@ -28,15 +28,15 @@
 
     <!-- 서브카테고리 이름 중복값 확인 -->
     <select id="countByName" resultType="int" parameterType="project.project.model.SubCategories">
-        SELECT COUNT(*) FROM sub_categories WHERE sub_category_name = #{sub_category_name} AND category_id = #{category_id}
+        SELECT COUNT(*) FROM sub_categories WHERE sub_category_name = #{subCategoryName} AND category_id = #{categoryId}
     </select>
 
     <insert id="insertSubCategory" parameterType="project.project.model.SubCategories">
-        INSERT INTO sub_categories (sub_category_name, category_id) VALUES (#{sub_category_name}, #{category_id})
+        INSERT INTO sub_categories (sub_category_name, category_id) VALUES (#{subCategoryName}, #{categoryId})
     </insert>
 
     <update id="updateSubCategory" parameterType="project.project.model.SubCategories">
-        UPDATE sub_categories SET sub_category_name = #{sub_category_name}, category_id = #{category_id} WHERE id = #{id}
+        UPDATE sub_categories SET sub_category_name = #{subCategoryName}, category_id = #{categoryId} WHERE id = #{id}
     </update>
 
     <delete id="deleteSubCategory" parameterType="java.lang.Integer">

@@ -1,14 +1,14 @@
 package project.project.model;
 
 public class Categories {
-    private Integer id;
+    private int id;
     private String categoryName;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

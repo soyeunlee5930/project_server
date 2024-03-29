@@ -2,19 +2,19 @@ package project.project.model;
 
 public class SubCategories {
 
-    private Integer id;
+    private int id;
 
     private String subCategoryName;
 
-    private Integer categoryId;
+    private int categoryId;
 
     private String categoryName; // categoryName 추가
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -26,11 +26,11 @@ public class SubCategories {
         this.subCategoryName = subCategoryName;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 

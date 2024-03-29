@@ -12,15 +12,15 @@
 
     <!-- 카테고리 이름 중복값 확인 -->
     <select id="countByName" resultType="int" parameterType="java.lang.String">
-        SELECT COUNT(*) FROM categories WHERE category_name = #{category_name}
+        SELECT COUNT(*) FROM categories WHERE category_name = #{categoryName}
     </select>
 
     <insert id="insertCategory" parameterType="project.project.model.Categories">
-        INSERT INTO categories (category_name) VALUES (#{category_name})
+        INSERT INTO categories (category_name) VALUES (#{categoryName})
     </insert>
 
     <update id="updateCategory" parameterType="project.project.model.Categories">
-        UPDATE categories SET category_name = #{category_name} WHERE id = #{id}
+        UPDATE categories SET category_name = #{categoryName} WHERE id = #{id}
     </update>
 
     <delete id="deleteCategory" parameterType="java.lang.Integer">

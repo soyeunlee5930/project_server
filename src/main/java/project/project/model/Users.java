@@ -6,22 +6,22 @@ import java.time.LocalDate;
 
 public class Users {
 
-    private Integer id;
+    private int id;
     private String userId;
     private String pwd;
     private String name;
     private String phoneNum;
     private String email;
-    private Integer gender; // 0 : 남성, 1 : 여성
+    private int gender; // 0 : 남성, 1 : 여성
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
-    private Integer state; // 0 : 탈퇴, 1 : 가입
+    private int state; // 0 : 탈퇴, 1 : 가입
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -65,11 +65,11 @@ public class Users {
         this.email = email;
     }
 
-    public Integer getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -81,11 +81,11 @@ public class Users {
         this.birth = birth;
     }
 
-    public Integer getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(int state) {
         this.state = state;
     }
 }

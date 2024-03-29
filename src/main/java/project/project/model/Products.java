@@ -1,30 +1,30 @@
 package project.project.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Products {
-    private Integer id;
+    private int id;
     private String productName;
-    private Integer categoryId;
-    private Integer discountRate;
-    private BigDecimal price;
-    private BigDecimal discountPrice;
-    private Integer quantity;
-    private BigDecimal accumulatedAmount;
+    private int categoryId;
+    private int discountRate;
+    private int price;
+    private int discountPrice;
+    private int quantity;
+    private int accumulatedAmount; // 적립금
     private String productCode;
-    private Integer deliveryCountry;
-    private String productDescription;
-    private String thumnailImageUrl;
-    private String detailImageUrl;
+    private int deliveryCountry; // 국내배송(0), 해외배송(1), 국내&해외배송(2)
+    private String productDescription; // 상품 상세 설명(S3 업로드 후 URL)
+    private String thumnailImageUrl; // 상품 대표 이미지
+    private String detailImageUrl; // 상품 상세 이미지 List
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,51 +36,51 @@ public class Products {
         this.productName = productName;
     }
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Integer getDiscountRate() {
+    public int getDiscountRate() {
         return discountRate;
     }
 
-    public void setDiscountRate(Integer discountRate) {
+    public void setDiscountRate(int discountRate) {
         this.discountRate = discountRate;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public BigDecimal getDiscountPrice() {
+    public int getDiscountPrice() {
         return discountPrice;
     }
 
-    public void setDiscountPrice(BigDecimal discountPrice) {
+    public void setDiscountPrice(int discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getAccumulatedAmount() {
+    public int getAccumulatedAmount() {
         return accumulatedAmount;
     }
 
-    public void setAccumulatedAmount(BigDecimal accumulatedAmount) {
+    public void setAccumulatedAmount(int accumulatedAmount) {
         this.accumulatedAmount = accumulatedAmount;
     }
 
@@ -92,11 +92,11 @@ public class Products {
         this.productCode = productCode;
     }
 
-    public Integer getDeliveryCountry() {
+    public int getDeliveryCountry() {
         return deliveryCountry;
     }
 
-    public void setDeliveryCountry(Integer deliveryCountry) {
+    public void setDeliveryCountry(int deliveryCountry) {
         this.deliveryCountry = deliveryCountry;
     }
 
