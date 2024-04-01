@@ -6,28 +6,24 @@
         SELECT * FROM products;
     </select>
 
-<!--    <insert id="insertProduct" parameterType="project.project.model.Products">-->
-<!--        INSERT INTO products (product_name, category_id, discount_rate, price, discount_price, quantity, accumulated_amount, product_code, delivery_country, product_description, thumnail_image_url, detail_image_url, created_at, updated_at) VALUES (#{product_name}, #{category_id}, #{discount_rate}, #{price}, #{discount_price}, #{quantity}, #{accumulated_amount}, #{product_code}, #{delivery_country}, #{product_description}, #{thumnail_image_url}, #{detail_image_url}, #{created_at}, #{updated_at})-->
-<!--    </insert>-->
-
     <insert id="insertProduct" parameterType="project.project.model.Products">
         INSERT INTO products (product_name, category_id, discount_rate, price, discount_price, quantity, accumulated_amount, product_code, delivery_country, product_description, thumnail_image_url, detail_image_url, created_at, updated_at) VALUES (#{productName}, #{categoryId}, #{discountRate}, #{price}, #{discountPrice}, #{quantity}, #{accumulatedAmount}, #{productCode}, #{deliveryCountry}, #{productDescription}, #{thumnailImageUrl}, #{detailImageUrl}, #{createdAt}, #{updatedAt})
     </insert>
 
     <update id="updateProduct" parameterType="project.project.model.Products">
         UPDATE products
-        SET product_name = #{product_name},
-        sub_category_id = #{sub_category_id},
-        discount_rate = #{discount_rate},
+        SET product_name = #{productName},
+        sub_category_id = #{subCategoryId},
+        discount_rate = #{discountRate},
         price = #{price},
-        discount_price = #{discount_price},
+        discount_price = #{discountPrice},
         quantity = #{quantity},
-        accumulated_amount = #{accumulated_amount},
-        product_code = #{product_code},
-        delivery_country = #{delivery_country},
-        product_description = #{product_description},
-        thumnail_image_url = #{thumnail_image_url},
-        detail_image_url = #{detail_image_url},
+        accumulated_amount = #{accumulatedAmount},
+        product_code = #{productCode},
+        delivery_country = #{deliveryCountry},
+        product_description = #{productDescription},
+        thumnail_image_url = #{thumnailImageUrl},
+        detail_image_url = #{detailImageUrl},
         updated_at = now()
         WHERE id = #{id}
     </update>
@@ -35,5 +31,10 @@
     <!--    <delete id="deleteCategory" parameterType="java.lang.Integer">-->
 <!--        DELETE FROM categories WHERE id = #{id}-->
 <!--    </delete>-->
+
+    <!-- 카테고리 아이디와 관련된 상품 삭제 -->
+    <delete id="deleteProductsByCategoryId" parameterType="java.lang.Integer">
+        DELETE FROM products WHERE category_id = #{id};
+    </delete>
 
 </mapper>

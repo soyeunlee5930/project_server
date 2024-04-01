@@ -1,5 +1,6 @@
 package project.project.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.project.mapper.ProductsMapper;
@@ -18,6 +19,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
+    @Transactional
     public void insertProduct(Products product) {
         productsMapper.insertProduct(product);
     }
