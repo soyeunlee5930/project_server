@@ -6,6 +6,10 @@
         SELECT * FROM products;
     </select>
 
+    <select id="getProductById" resultType="project.project.model.Products" parameterType="java.lang.Integer">
+        SELECT * FROM products WHERE id = #{id}
+    </select>
+
     <insert id="insertProduct" parameterType="project.project.model.Products">
         INSERT INTO products (product_name, category_id, discount_rate, price, discount_price, quantity, accumulated_amount, product_code, delivery_country, product_description, thumnail_image_url, detail_image_url, created_at, updated_at) VALUES (#{productName}, #{categoryId}, #{discountRate}, #{price}, #{discountPrice}, #{quantity}, #{accumulatedAmount}, #{productCode}, #{deliveryCountry}, #{productDescription}, #{thumnailImageUrl}, #{detailImageUrl}, #{createdAt}, #{updatedAt})
     </insert>
@@ -13,7 +17,7 @@
     <update id="updateProduct" parameterType="project.project.model.Products">
         UPDATE products
         SET product_name = #{productName},
-        sub_category_id = #{subCategoryId},
+        category_id = #{categoryId},
         discount_rate = #{discountRate},
         price = #{price},
         discount_price = #{discountPrice},
@@ -28,9 +32,9 @@
         WHERE id = #{id}
     </update>
 
-    <!--    <delete id="deleteCategory" parameterType="java.lang.Integer">-->
-<!--        DELETE FROM categories WHERE id = #{id}-->
-<!--    </delete>-->
+    <delete id="deleteProduct" parameterType="java.lang.Integer">
+        DELETE FROM products WHERE id = #{id}
+    </delete>
 
     <!-- 카테고리 아이디와 관련된 상품 삭제 -->
     <delete id="deleteProductsByCategoryId" parameterType="java.lang.Integer">

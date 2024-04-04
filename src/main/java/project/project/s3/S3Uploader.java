@@ -1,5 +1,6 @@
 package project.project.s3;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -69,4 +70,15 @@ public class S3Uploader {
         }
         return Optional.empty();
     }
+
+    // S3에 업로드된 이미지 삭제처리(input file 수정, 삭제의 경우)
+    public void fileDelete(String fileKey) {
+        try {
+            amazonS3Client.deleteObject(this.bucket, fileKey);
+            System.out.println("파일 삭제 완료: " + fileKey);
+        } catch (AmazonServiceException e) {
+            System.err.println("파일 삭제 실패: " + e.getErrorMessage());
+        }
+    }
+
 }

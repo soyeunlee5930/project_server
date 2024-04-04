@@ -19,9 +19,26 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
+    public Products getProductById(Integer id) {
+        return productsMapper.getProductById(id);
+    }
+
+    @Override
     @Transactional
     public void insertProduct(Products product) {
         productsMapper.insertProduct(product);
+    }
+
+    @Override
+    @Transactional
+    public void updateProduct(Products product) {
+        productsMapper.updateProduct(product);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProduct(Integer id) {
+        productsMapper.deleteProduct(id);
     }
 
 }
