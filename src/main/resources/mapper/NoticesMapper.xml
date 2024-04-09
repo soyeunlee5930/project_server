@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.NoticesMapper">
+
+    <select id="getAllNotices" resultType="project.project.model.Notices">
+        SELECT * FROM notices;
+    </select>
+
+    <select id="getNoticeById" resultType="project.project.model.Notices" parameterType="java.lang.Integer">
+        SELECT * FROM notices WHERE id = #{id}
+    </select>
+
+    <insert id="insertNotice" parameterType="project.project.model.Notices">
+        INSERT INTO notices (admin_id, title, content, created_at, updated_at) VALUES (#{adminId}, #{title}, #{content}, now(), now())
+    </insert>
+
+    <!-- views(조회수) 업데이트 -->
+    <update id="updateViewsCount" parameterType="java.lang.Integer">
+        UPDATE notices SET views = views + 1 WHERE id = #{id}
+    </update>
+
+    <update id="updateNotice" parameterType="project.project.model.Notices">
+        UPDATE notices
+        SET admin_id = #{adminId},
+        title = #{title},
+        content = #{content},
+        updated_at = now()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteNotice" parameterType="java.lang.Integer">
+        DELETE FROM notices WHERE id = #{id}
+    </delete>
+
+</mapper>
