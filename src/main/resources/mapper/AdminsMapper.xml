@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.AdminsMapper">
+
+    <select id="getAllAdmins" resultType="project.project.model.Admins">
+        SELECT * FROM admins;
+    </select>
+
+    <!-- 로그인한 관리자정보 -->
+    <select id="getAdminById" resultType="project.project.model.Admins">
+        SELECT * FROM admins WHERE admin_id = #{adminId}
+    </select>
+
+    <insert id="insertAdmin" parameterType="project.project.model.Admins">
+        INSERT INTO admins (admin_id, admin_pwd, admin_name, state) VALUES (#{adminId}, #{adminPwd}, #{adminName}, #{state})
+    </insert>
+
+</mapper>
