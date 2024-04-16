@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import project.project.error.ErrorCode;
+import project.project.exception.CustomException;
 import project.project.requestParam.ProductsParam;
 import project.project.s3.S3Uploader;
 import project.project.model.Products;
@@ -40,7 +42,7 @@ public class ProductsController {
         if (product != null) {
             return ResponseEntity.ok().body(product);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new CustomException("존재하지 않는 상품입니다.", ErrorCode.NOT_FOUND);
         }
     }
 
@@ -86,7 +88,7 @@ public class ProductsController {
 
             return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            throw new CustomException("필수데이터 누락, 또는 형식과 다른 데이터를 요청하셨습니다.", ErrorCode.INVALID_PARAMS);
         }
     }
 
@@ -99,7 +101,7 @@ public class ProductsController {
         try {
             Products existingProduct = productsService.getProductById(id);
             if (existingProduct == null) { // 일치하는 상품 아이디가 없는 경우
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+                throw new CustomException("존재하지 않는 상품입니다.", ErrorCode.NOT_FOUND);
             }
 
             // 이미지 업로드 및 URL 생성
@@ -176,7 +178,7 @@ public class ProductsController {
 
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            throw new CustomException("필수데이터 누락, 또는 형식과 다른 데이터를 요청하셨습니다.", ErrorCode.INVALID_PARAMS);
         }
     }
 
@@ -185,7 +187,7 @@ public class ProductsController {
         try {
             Products product = productsService.getProductById(id);
             if (product == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                throw new CustomException("존재하지 않는 상품입니다.", ErrorCode.NOT_FOUND);
             }
 
             // S3 업로드 이미지파일 삭제처리
