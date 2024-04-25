@@ -2,18 +2,21 @@ package project.project.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+
 import org.springframework.web.bind.annotation.*;
+
+import project.project.error.ErrorCode;
+import project.project.exception.CustomException;
+
 import project.project.model.Users;
 import project.project.service.UsersService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/admins")
+@RequestMapping(value={"/admins", "/clients"})
 @CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
@@ -22,31 +25,35 @@ public class UserController {
     @GetMapping("/users/all")
     public ResponseEntity<List<Users>> getAll() {
         List<Users> users = usersService.findAll();
-        return ResponseEntity.ok().body(users);
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @GetMapping("/users/userInfo")
-    public ResponseEntity<List<Users>> getUserInfo() {
-        List<Users> user = usersService.findUserInfo();
-        return ResponseEntity.ok().body(user);
+    @GetMapping("/users/{id}")
+    public ResponseEntity<Users> getUserById(@PathVariable Integer id) {
+        Users user = usersService.getUserById(id);
+        if (user != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } else {
+            throw new CustomException("해당하는 정보의 사용자를 찾을 수 없습니다.", ErrorCode.USER_NOT_FOUND);
+        }
     }
 
-    @GetMapping("/users/insert")
-    public ResponseEntity<String> insertUser() {
-        Users newUser = new Users();
-
-        newUser.setUserId("choi123");
-        newUser.setPwd("choi123");
-        newUser.setName("choi");
-        newUser.setPhoneNum("010-9999-0000");
-        newUser.setEmail("choi123@test.com");
-        newUser.setGender(1);
-        newUser.setBirth(LocalDate.of(1988,3,16));
-        newUser.setState(1);
-
-        usersService.insertUser(newUser);
-
+    @GetMapping("/users/join")
+    public ResponseEntity<String> signup(@RequestBody Users user) {
+        usersService.insertUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("success");
     }
 
+    // Kakao Login
+    @GetMapping("/login/kakao")
+    public ResponseEntity<Users> kakaoLogin(@RequestParam("code") String code) {
+        if (code == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        String accessToken = usersService.getKakaoAccessToken(code);
+        ResponseEntity<Users> response = usersService.getKakaoUserInfo(accessToken);
+
+        // Access Token을 응답 헤더에 추가하여 클라이언트에게 전달
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(response.getBody());
+    }
 }

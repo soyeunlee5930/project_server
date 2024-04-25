@@ -20,14 +20,14 @@ public class SubCategoriesController {
     @GetMapping("/subcategories")
     public ResponseEntity<List<SubCategories>> getAllSubCategories() {
         List<SubCategories> subCategories = subCategoriesService.getAllSubCategories();
-        return ResponseEntity.ok().body(subCategories);
+        return ResponseEntity.status(HttpStatus.OK).body(subCategories);
     }
 
     @GetMapping("/subcategories/{id}")
     public ResponseEntity<SubCategories> findSubCategoryById(@PathVariable Integer id) {
         SubCategories subCategory = subCategoriesService.findSubCategoryById(id);
         if (subCategory != null) {
-            return ResponseEntity.ok().body(subCategory);
+            return ResponseEntity.status(HttpStatus.OK).body(subCategory);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

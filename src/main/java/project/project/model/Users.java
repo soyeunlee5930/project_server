@@ -5,10 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public class Users {
-
     private int id;
     private String userId;
-    private String pwd;
     private String name;
     private String phoneNum;
     private String email;
@@ -31,14 +29,6 @@ public class Users {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
     }
 
     public String getName() {

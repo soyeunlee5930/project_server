@@ -33,14 +33,14 @@ public class ProductsController {
     @GetMapping("/products")
     public ResponseEntity<List<Products>> getAllProducts() {
         List<Products> products = productsService.getAllProducts();
-        return ResponseEntity.ok().body(products);
+        return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
     @GetMapping("/products/{id}")
     public ResponseEntity<Products> getProductById(@PathVariable Integer id) {
         Products product = productsService.getProductById(id);
         if (product != null) {
-            return ResponseEntity.ok().body(product);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
         } else {
             throw new CustomException("존재하지 않는 상품입니다.", ErrorCode.NOT_FOUND);
         }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.project.model.Admins;
 import project.project.requestParam.LoginParam;
 import project.project.service.AdminsService;
 
@@ -30,7 +29,7 @@ public class AdminsController {
         session.setAttribute("id", id);
         session.setAttribute("adminId", loginParam.getAdminId());
         session.setMaxInactiveInterval(1800); // session 유효 시간 설정 : 30분
-        return ResponseEntity.ok("로그인되었습니다");
+        return ResponseEntity.status(HttpStatus.OK).body("로그인되었습니다");
     }
 
     @PostMapping("/logout")
@@ -38,7 +37,6 @@ public class AdminsController {
         if(session != null) {
             session.invalidate();
         }
-
-        return ResponseEntity.ok("로그아웃되었습니다");
+        return ResponseEntity.status(HttpStatus.OK).body("로그아웃되었습니다");
     }
 }

@@ -6,11 +6,31 @@
         SELECT * FROM users
     </select>
 
-    <select id="findUserInfo" resultType="project.project.model.Users">
-        SELECT * FROM users WHERE id=1
+    <select id="getUserById" resultType="project.project.model.Users" parameterType="java.lang.Integer">
+        SELECT * FROM users WHERE id= #{id}
+    </select>
+
+    <select id="getUserByUserId" resultType="project.project.model.Users" parameterType="java.lang.String">
+        SELECT * FROM users WHERE user_id = #{user_id}
     </select>
 
     <insert id="insertUser" parameterType="project.project.model.Users">
-        INSERT INTO users (user_id, pwd, name, phone_num, email, gender, birth, state) VALUES (#{userId}, #{pwd}, #{name}, #{phoneNum}, #{email}, #{gender}, #{birth}, #{state})
+        INSERT INTO users (user_id, name, phone_num, email, gender, birth, state) VALUES (#{userId}, #{name}, #{phoneNum}, #{email}, #{gender}, #{birth}, 1)
     </insert>
+
+    <update id="updateUser" parameterType="project.project.model.Users">
+        UPDATE users
+        SET user_id = #{userId},
+        name = #{name},
+        phone_num = #{phoneNum},
+        email = #{email},
+        gender = #{gender},
+        birth = #{birth},
+        state = #{state},
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
 </mapper>

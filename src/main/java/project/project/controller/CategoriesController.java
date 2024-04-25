@@ -1,6 +1,5 @@
 package project.project.controller;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class CategoriesController {
     @GetMapping("/categories")
     public ResponseEntity<List<Categories>> getAll() {
         List<Categories> categories = categoriesService.getAllCategories();
-        return ResponseEntity.ok().body(categories);
+        return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping("/categories/{id}")

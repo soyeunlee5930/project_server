@@ -19,7 +19,7 @@ public class NoticesController {
     @GetMapping("/notices")
     public ResponseEntity<List<Notices>> getAllNotices() {
         List<Notices> notices = noticesService.getAllNotices();
-        return ResponseEntity.ok().body(notices);
+        return ResponseEntity.status(HttpStatus.OK).body(notices);
     }
 
     @GetMapping("/notices/{id}")
@@ -27,7 +27,7 @@ public class NoticesController {
         Notices notice = noticesService.getNoticeById(id);
         if (notice != null) {
             noticesService.updateViewsCount(id);
-            return ResponseEntity.ok().body(notice);
+            return ResponseEntity.status(HttpStatus.OK).body(notice);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
