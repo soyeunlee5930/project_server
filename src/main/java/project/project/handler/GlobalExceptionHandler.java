@@ -1,4 +1,4 @@
-package project.project.exception;
+package project.project.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import project.project.error.ErrorCode;
 import project.project.error.ErrorResponse;
-
-import static project.project.error.ErrorCode.INTERNAL_SERVER_ERROR;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

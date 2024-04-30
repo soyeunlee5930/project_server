@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.project.error.ErrorCode;
-import project.project.exception.CustomException;
+import project.project.handler.CustomException;
 import project.project.requestParam.ProductsParam;
 import project.project.s3.S3Uploader;
 import project.project.model.Products;

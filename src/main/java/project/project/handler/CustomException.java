@@ -1,4 +1,4 @@
-package project.project.exception;
+package project.project.handler;
 
 import lombok.AllArgsConstructor;
 import project.project.error.ErrorCode;

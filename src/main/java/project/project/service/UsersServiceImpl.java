@@ -187,6 +187,7 @@ public class UsersServiceImpl implements UsersService {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             LocalDate birth = LocalDate.parse(kakaoBirth, formatter);
             kakaoUser.setBirth(birth);
+            kakaoUser.setUserType("kakao"); // kakao 로그인 및 회원가입으로 진행 시
 
             usersMapper.insertUser(kakaoUser);
         }

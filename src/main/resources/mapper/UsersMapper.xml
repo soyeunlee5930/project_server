@@ -15,12 +15,12 @@
     </select>
 
     <insert id="insertUser" parameterType="project.project.model.Users">
-        INSERT INTO users (user_id, name, phone_num, email, gender, birth, state) VALUES (#{userId}, #{name}, #{phoneNum}, #{email}, #{gender}, #{birth}, 1)
+        INSERT INTO users (user_id, name, phone_num, email, gender, birth, user_type, user_role, state) VALUES (#{userId}, #{name}, #{phoneNum}, #{email}, #{gender}, #{birth}, #{userType}, "ROLE_USER" , 1)
     </insert>
 
     <update id="updateUser" parameterType="project.project.model.Users">
         UPDATE users
-        SET user_id = #{userId},
+        SET
         name = #{name},
         phone_num = #{phoneNum},
         email = #{email},

@@ -13,6 +13,8 @@ public class Users {
     private int gender; // 0 : 남성, 1 : 여성
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
+    private String userType; // 회원가입 방법에 따라 origin, kakao
+    private String userRole; // ROLE_USER, ROLE_ADMIN
     private int state; // 0 : 탈퇴, 1 : 가입
 
     public int getId() {
@@ -69,6 +71,22 @@ public class Users {
 
     public void setBirth(LocalDate birth) {
         this.birth = birth;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+        this.userRole = userRole;
     }
 
     public int getState() {
