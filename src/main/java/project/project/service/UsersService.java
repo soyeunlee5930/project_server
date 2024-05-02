@@ -1,6 +1,7 @@
 package project.project.service;
 
 import org.springframework.http.ResponseEntity;
+import project.project.model.LoginResponseDto;
 import project.project.model.Users;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface UsersService {
     void updateUser(Users user);
     void deleteUser(Integer id);
     String getKakaoAccessToken(String code);
-    ResponseEntity<Users> getKakaoUserInfo(String kakaoAccessToken);
+    ResponseEntity<LoginResponseDto> kakaoLogin(String kakaoAccessToken);
 }

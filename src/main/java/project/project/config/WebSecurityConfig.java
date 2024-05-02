@@ -78,7 +78,7 @@ public class WebSecurityConfig {
     protected CorsConfigurationSource corsConfigurationSource() {
         // CorsConfiguration 새 인스턴스 생성
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // 모든 출처에 대해서 허용
+        corsConfiguration.addAllowedOrigin("http://localhost:3000"); // 해당 출처에 대해서 허용
         corsConfiguration.addAllowedMethod("*"); // 모든 메서드에 대해서 허용
         corsConfiguration.addAllowedHeader("*"); // 모든 헤더에 대해서 허용
 

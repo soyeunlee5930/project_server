@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import project.project.mapper.UsersMapper;
 import project.project.model.*;
+import project.project.provider.JwtProvider;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,6 +27,9 @@ import java.util.regex.Pattern;
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersMapper usersMapper;
+
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @Value("${kakao.client.id}")
     private String kakaoClientId;
@@ -121,8 +125,25 @@ public class UsersServiceImpl implements UsersService {
         return kakaoAccessToken;
     }
 
+    public ResponseEntity<LoginResponseDto> kakaoLogin(String kakaoAccessToken) {
+        Users user = getKakaoUserInfo(kakaoAccessToken);
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto();
+        loginResponseDto.setLoginSuccess(true);
+        loginResponseDto.setUser(user);
+
+        // jwt 생성
+        String token = jwtProvider.createJwt(user.getUserId());
+
+        // jwt를 응답 헤더에 추가하여 클라이언트에게 전달
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(loginResponseDto);
+    }
+
     @Transactional
-    public ResponseEntity<Users> getKakaoUserInfo(String kakaoAccessToken) {
+    public Users getKakaoUserInfo(String kakaoAccessToken) {
         // 카카오에 사용자정보를 요청함
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -190,9 +211,12 @@ public class UsersServiceImpl implements UsersService {
             kakaoUser.setUserType("kakao"); // kakao 로그인 및 회원가입으로 진행 시
 
             usersMapper.insertUser(kakaoUser);
-        }
 
-        return ResponseEntity.status(HttpStatus.OK).body(registeredUser);
+            return kakaoUser;
+        } else {
+            System.out.println("기존 회원입니다.");
+            return registeredUser;
+        }
     }
 
     // 전화번호 형식 변환 메서드

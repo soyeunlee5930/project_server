@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import project.project.error.ErrorCode;
 import project.project.handler.CustomException;
 
+import project.project.model.LoginResponseDto;
 import project.project.model.Users;
 import project.project.provider.JwtProvider;
 import project.project.service.UsersService;
@@ -66,4 +67,12 @@ public class UserController {
 //
 //        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(response.getBody());
 //    }
+
+    @GetMapping("/oauth2/login/kakao")
+    public ResponseEntity<LoginResponseDto> kakaoLogin(@RequestParam("code") String code) {
+        if (code == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        String kakaoAccessToken = usersService.getKakaoAccessToken(code);
+
+        return usersService.kakaoLogin(kakaoAccessToken);
+    }
 }
