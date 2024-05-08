@@ -2,6 +2,7 @@ package project.project.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -125,6 +126,9 @@ public class UsersServiceImpl implements UsersService {
 
         String kakaoAccessToken = oauthToken.getAccess_token();
         String kakaoRefreshToken = oauthToken.getRefresh_token();
+        int accessTokenExpired = oauthToken.getExpires_in();
+        System.out.println("kakaoAccessToken : " + kakaoAccessToken);
+        System.out.println("accessTokenExpired : " + accessTokenExpired);
 
         return kakaoAccessToken;
     }
@@ -137,7 +141,7 @@ public class UsersServiceImpl implements UsersService {
         loginResponseDto.setUser(user);
 
         // jwt 생성
-        String token = jwtProvider.createJwt(user.getUserId());
+        String token = jwtProvider.createJwt(kakaoAccessToken, user.getUserId());
 
         // jwt를 응답 헤더에 추가하여 클라이언트에게 전달
         HttpHeaders headers = new HttpHeaders();
@@ -241,8 +245,44 @@ public class UsersServiceImpl implements UsersService {
         }
     }
 
+    @Transactional
     public void logout(String accessToken) {
+        // accessToken을 받아서 카카오 액세스 토큰 받아오기
+        String kakaoToken = jwtProvider.getKakaoAccessTokenFromJwt(accessToken);
+
         // jwt 만료 시간을 지금 시간보다 이전으로 변경하여 즉시 만료
         jwtProvider.invalidateJwtToken(accessToken);
+
+        // kakao logout
+        RestTemplate rt = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers.add("Authorization", "Bearer "+ kakaoToken);
+
+        HttpEntity<MultiValueMap<String,String>> kakaoLogoutRequest = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = rt.exchange(
+                kakaoLogoutURL,
+                HttpMethod.POST,
+                kakaoLogoutRequest,
+                String.class
+        );
+
+        // HTTP 상태 코드 확인
+        if (response.getStatusCode() == HttpStatus.OK) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(response.getBody());
+                long userId = jsonNode.get("id").asLong();
+
+                // 로그 기록
+                System.out.println("Logout request for user was successful with ID : " + userId);
+            } catch (Exception e) {
+                System.out.println("Failed to parse JSON response: " + e.getMessage());
+            }
+        } else {
+            // HTTP 상태 코드가 200 OK가 아닌 경우에 대한 처리
+            System.out.println("Logout request failed with status code: " + response.getStatusCode());
+        }
     }
 }

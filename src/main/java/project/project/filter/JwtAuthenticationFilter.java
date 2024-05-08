@@ -13,8 +13,6 @@ import project.project.provider.JwtProvider;
 import project.project.service.UsersService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {

@@ -19,7 +19,7 @@ public class JwtProvider {
     @Value("${jwt.secret.key}")
     private String jwtSecretKey;
 
-    public String createJwt(String userId) {
+    public String createJwt(String kakaoAccessToken, String userId) {
 
         // 만료기간 설정하기 : 현재 시간으로부터 1시간까지
         Date expiredDate = Date.from(Instant.now().plus(1, ChronoUnit.HOURS));
@@ -28,7 +28,7 @@ public class JwtProvider {
         Key key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
 
         // jwt 생성하기 : secret key, token, 현재 시간, 만료 시간
-        String jwt = Jwts.builder().signWith(key, SignatureAlgorithm.HS256).setSubject(userId).setIssuedAt(new Date()).setExpiration(expiredDate).compact();
+        String jwt = Jwts.builder().signWith(key, SignatureAlgorithm.HS256).setSubject(userId).claim("kakaoAccessToken", kakaoAccessToken).setIssuedAt(new Date()).setExpiration(expiredDate).compact();
 
         return jwt;
     }
@@ -63,5 +63,11 @@ public class JwtProvider {
         // jwt 만료시간을 현재 시간으로부터 5분 전으로 설정하여 토큰을 즉시 만료시킴
         Date expirationDate = new Date(System.currentTimeMillis() - 5 * 60 * 1000);
         claims.setExpiration(expirationDate);
+    }
+
+    // 카카오 액세스 토큰 가져오기
+    public String getKakaoAccessTokenFromJwt(String jwt) {
+        Claims claims = Jwts.parserBuilder().setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8)).build().parseClaimsJws(jwt).getBody();
+        return (String) claims.get("kakaoAccessToken");
     }
 }
