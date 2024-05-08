@@ -46,6 +46,9 @@ public class UsersServiceImpl implements UsersService {
     @Value("${kakao.userinfo.uri}")
     private String kakaoUserInfoURI;
 
+    @Value("${kakao.logout.url}")
+    private String kakaoLogoutURL;
+
     @Override
     public List<Users> findAll() {
         return usersMapper.findAll();
@@ -121,6 +124,7 @@ public class UsersServiceImpl implements UsersService {
         }
 
         String kakaoAccessToken = oauthToken.getAccess_token();
+        String kakaoRefreshToken = oauthToken.getRefresh_token();
 
         return kakaoAccessToken;
     }
@@ -235,5 +239,10 @@ public class UsersServiceImpl implements UsersService {
             // 패턴에 매칭되는 부분이 없을 경우 원본 문자열 그대로 반환
             return phoneNumber;
         }
+    }
+
+    public void logout(String accessToken) {
+        // jwt 만료 시간을 지금 시간보다 이전으로 변경하여 즉시 만료
+        jwtProvider.invalidateJwtToken(accessToken);
     }
 }

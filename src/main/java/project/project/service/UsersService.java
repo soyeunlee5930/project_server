@@ -15,4 +15,5 @@ public interface UsersService {
     void deleteUser(Integer id);
     String getKakaoAccessToken(String code);
     ResponseEntity<LoginResponseDto> kakaoLogin(String kakaoAccessToken);
+    void logout(String accessToken);
 }

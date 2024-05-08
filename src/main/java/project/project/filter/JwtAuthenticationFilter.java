@@ -5,13 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -50,22 +43,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // userId가 있는 경우
+            // userId가 있는 경우, userId를 기반으로 사용자의 역할 확인
             Users user = usersService.getUserByUserId(userId);
             String role = user.getUserRole(); // user_role : ROLE_USER, ROLE_ADMIN 와 같이 ROLE_권한이름으로 설정
 
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(role));
-
-            // user 정보를 담는 SecurityContext 만들기
-            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-
-            // 사용자 정보(Object 가능하지만 여기서는 userId), 비밀번호(설정 안해서 null처리), 인증권한 배열로 넣어주기
-            AbstractAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId, null, authorities);
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-            securityContext.setAuthentication(authenticationToken);
-            SecurityContextHolder.setContext(securityContext); // 만든 context 등록
+            // 사용자의 역할을 request의 속성으로 추가
+            request.setAttribute("userRole", role);
 
         } catch (Exception e) {
             e.printStackTrace();

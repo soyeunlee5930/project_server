@@ -50,29 +50,24 @@ public class UserController {
     }
 
     // Kakao Login
-//    @GetMapping("/oauth2/login/kakao")
-//    public ResponseEntity<Users> kakaoLogin(@RequestParam("code") String code) {
-//        if (code == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//        String accessToken = usersService.getKakaoAccessToken(code);
-//        System.out.println("accessToken : " + accessToken);
-//
-//        ResponseEntity<Users> response = usersService.getKakaoUserInfo(accessToken);
-//
-//        String token = jwtProvider.createJwt(accessToken);
-//        System.out.println("jwt token : " + token);
-//
-//        // Access Token을 응답 헤더에 추가하여 클라이언트에게 전달
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", "Bearer " + token);
-//
-//        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(response.getBody());
-//    }
-
     @GetMapping("/oauth2/login/kakao")
     public ResponseEntity<LoginResponseDto> kakaoLogin(@RequestParam("code") String code) {
         if (code == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         String kakaoAccessToken = usersService.getKakaoAccessToken(code);
 
         return usersService.kakaoLogin(kakaoAccessToken);
+    }
+
+    @GetMapping("/oauth2/logout")
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String accessToken) {
+        if (accessToken == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        try {
+            usersService.logout(accessToken);
+            return ResponseEntity.status(HttpStatus.OK).body("로그아웃되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그아웃에 실패했습니다.");
+        }
     }
 }

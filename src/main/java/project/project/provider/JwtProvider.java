@@ -51,4 +51,17 @@ public class JwtProvider {
 
         return subject;
     }
+
+    // jwt 만료시키기
+    public void invalidateJwtToken(String jwt) {
+
+        Key key = Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
+
+        // 토큰 해독하여 클레임 가져오기
+        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
+
+        // jwt 만료시간을 현재 시간으로부터 5분 전으로 설정하여 토큰을 즉시 만료시킴
+        Date expirationDate = new Date(System.currentTimeMillis() - 5 * 60 * 1000);
+        claims.setExpiration(expirationDate);
+    }
 }
