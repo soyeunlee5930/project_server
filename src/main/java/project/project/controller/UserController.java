@@ -63,11 +63,17 @@ public class UserController {
         if (accessToken == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         try {
-            usersService.logout(accessToken);
-            return ResponseEntity.status(HttpStatus.OK).body("로그아웃되었습니다.");
+            // 토큰이 유효하면 로그아웃 처리
+            if (!jwtProvider.isTokenExpired(accessToken)) {
+                usersService.logout(accessToken);
+                return ResponseEntity.status(HttpStatus.OK).body("로그아웃되었습니다.");
+            } else {
+                // 토큰이 만료된 경우 처리
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("토큰이 만료되었습니다.");
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("로그아웃에 실패했습니다.");
+            // 토큰 유효성 검증 실패 등 다른 이유로 인한 예외 처리
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰입니다.");
         }
     }
 }

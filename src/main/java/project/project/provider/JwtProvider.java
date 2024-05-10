@@ -70,4 +70,15 @@ public class JwtProvider {
         Claims claims = Jwts.parserBuilder().setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8)).build().parseClaimsJws(jwt).getBody();
         return (String) claims.get("kakaoAccessToken");
     }
+
+    // JWT 만료 여부 확인
+    public boolean isTokenExpired(String jwt) {
+        try {
+            Claims claims = Jwts.parserBuilder().setSigningKey(jwtSecretKey.getBytes(StandardCharsets.UTF_8)).build().parseClaimsJws(jwt).getBody();
+            Date expiration = claims.getExpiration();
+            return expiration.before(new Date());
+        } catch (Exception e) {
+            return true; // 토큰 파싱 오류 등이 발생한 경우에도 만료된 것으로 처리
+        }
+    }
 }
