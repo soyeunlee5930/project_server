@@ -58,7 +58,7 @@ public class UserController {
         return usersService.kakaoLogin(kakaoAccessToken);
     }
 
-    @GetMapping("/oauth2/logout")
+    @PostMapping("/oauth2/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String accessToken) {
         if (accessToken == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 

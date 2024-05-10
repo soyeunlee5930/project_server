@@ -2,7 +2,7 @@ package project.project.model;
 
 public class LoginResponseDto {
     public boolean loginSuccess;
-    public Users user;
+    public int id;
 
     public boolean isLoginSuccess() {
         return loginSuccess;
@@ -12,11 +12,11 @@ public class LoginResponseDto {
         this.loginSuccess = loginSuccess;
     }
 
-    public Users getUser() {
-        return user;
+    public int getId() {
+        return id;
     }
 
-    public void setUser(Users user) {
-        this.user = user;
+    public void setId(int id) {
+        this.id = id;
     }
 }

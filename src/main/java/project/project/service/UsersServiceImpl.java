@@ -50,6 +50,9 @@ public class UsersServiceImpl implements UsersService {
     @Value("${kakao.logout.url}")
     private String kakaoLogoutURL;
 
+    @Value("${kakao.logout.get.url}")
+    private String kakaoLogoutGetURL;
+
     @Override
     public List<Users> findAll() {
         return usersMapper.findAll();
@@ -125,20 +128,21 @@ public class UsersServiceImpl implements UsersService {
         }
 
         String kakaoAccessToken = oauthToken.getAccess_token();
-        String kakaoRefreshToken = oauthToken.getRefresh_token();
-        int accessTokenExpired = oauthToken.getExpires_in();
-        System.out.println("kakaoAccessToken : " + kakaoAccessToken);
-        System.out.println("accessTokenExpired : " + accessTokenExpired);
+//        String kakaoRefreshToken = oauthToken.getRefresh_token();
+//        int accessTokenExpired = oauthToken.getExpires_in();
+//        System.out.println("kakaoAccessToken : " + kakaoAccessToken);
+//        System.out.println("accessTokenExpired : " + accessTokenExpired);
 
         return kakaoAccessToken;
     }
 
     public ResponseEntity<LoginResponseDto> kakaoLogin(String kakaoAccessToken) {
         Users user = getKakaoUserInfo(kakaoAccessToken);
+        int loginId = user.getId();
 
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setLoginSuccess(true);
-        loginResponseDto.setUser(user);
+        loginResponseDto.setId(loginId);
 
         // jwt 생성
         String token = jwtProvider.createJwt(kakaoAccessToken, user.getUserId());
@@ -253,11 +257,11 @@ public class UsersServiceImpl implements UsersService {
         // jwt 만료 시간을 지금 시간보다 이전으로 변경하여 즉시 만료
         jwtProvider.invalidateJwtToken(accessToken);
 
-        // kakao logout
+        // kakao 계정과 함께 logout
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-        headers.add("Authorization", "Bearer "+ kakaoToken);
+        headers.add("Authorization", "Bearer " + kakaoToken);
 
         HttpEntity<MultiValueMap<String,String>> kakaoLogoutRequest = new HttpEntity<>(headers);
 
@@ -268,7 +272,6 @@ public class UsersServiceImpl implements UsersService {
                 String.class
         );
 
-        // HTTP 상태 코드 확인
         if (response.getStatusCode() == HttpStatus.OK) {
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -284,5 +287,21 @@ public class UsersServiceImpl implements UsersService {
             // HTTP 상태 코드가 200 OK가 아닌 경우에 대한 처리
             System.out.println("Logout request failed with status code: " + response.getStatusCode());
         }
+
+        // kakao 계정과 함께 로그아웃
+//        ResponseEntity<String> response = rt.exchange(
+//                kakaoLogoutGetURL,
+//                HttpMethod.GET,
+//                kakaoLogoutRequest,
+//                String.class
+//        );
+//
+//        // HTTP 상태 코드 확인
+//        if (response.getStatusCode() == HttpStatus.FOUND) {
+//            System.out.println("Logout request for user was successful");
+//        } else {
+//            // HTTP 상태 코드가 302 FOUND가 아닌 경우에 대한 처리
+//            System.out.println("Logout request failed with status code: " + response.getStatusCode());
+//        }
     }
 }
