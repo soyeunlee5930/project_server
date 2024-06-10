@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.ColorsMapper">
+
+    <select id="getAllColors" resultType="project.project.model.Colors">
+        SELECT * FROM colors;
+    </select>
+
+    <select id="getColorById" resultType="project.project.model.Colors" parameterType="java.lang.Integer">
+        SELECT * FROM colors WHERE id = #{id}
+    </select>
+
+    <insert id="insertColor" parameterType="project.project.model.Colors">
+        INSERT INTO colors (color) VALUES (#{color})
+    </insert>
+
+    <delete id="deleteColor" parameterType="java.lang.Integer">
+        DELETE FROM colors WHERE id = #{id}
+    </delete>
+
+</mapper>

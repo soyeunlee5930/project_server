@@ -1,0 +1,21 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.SizesMapper">
+
+    <select id="getAllSizes" resultType="project.project.model.Sizes">
+        SELECT * FROM sizes;
+    </select>
+
+    <select id="getSizeById" resultType="project.project.model.Sizes" parameterType="java.lang.Integer">
+        SELECT * FROM sizes WHERE id = #{id}
+    </select>
+
+    <insert id="insertSize" parameterType="project.project.model.Sizes">
+        INSERT INTO sizes (size) VALUES (#{size})
+    </insert>
+
+    <delete id="deleteSize" parameterType="java.lang.Integer">
+        DELETE FROM sizes WHERE id = #{id}
+    </delete>
+
+</mapper>
