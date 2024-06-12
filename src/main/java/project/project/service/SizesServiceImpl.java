@@ -24,6 +24,11 @@ public class SizesServiceImpl implements SizesService {
     }
 
     @Override
+    public int countBySize(Integer size) {
+        return sizesMapper.countBySize(size);
+    }
+
+    @Override
     public void insertSize(Sizes size) {
         sizesMapper.insertSize(size);
     }

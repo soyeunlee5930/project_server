@@ -23,6 +23,11 @@ public class ColorsServiceImpl implements ColorsService {
     }
 
     @Override
+    public int countByColor(String color) {
+        return colorsMapper.countByColor(color);
+    }
+
+    @Override
     public void insertColor(Colors color) {
         colorsMapper.insertColor(color);
     }

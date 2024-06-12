@@ -9,6 +9,8 @@ public interface SizesService {
 
     Sizes getSizeById(Integer id);
 
+    int countBySize(Integer size);
+
     void insertSize(Sizes size);
 
     void deleteSize(Integer id);

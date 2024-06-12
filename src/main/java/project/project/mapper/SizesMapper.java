@@ -11,7 +11,9 @@ public interface SizesMapper {
 
     Sizes getSizeById(Integer id);
 
-    void insertSize(Sizes color);
+    int countBySize(Integer size);
+
+    void insertSize(Sizes size);
 
     void deleteSize(Integer id);
 }

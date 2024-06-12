@@ -10,6 +10,11 @@
         SELECT * FROM colors WHERE id = #{id}
     </select>
 
+    <!-- 색상 이름 중복값 확인 -->
+    <select id="countByColor" resultType="int" parameterType="java.lang.String">
+        SELECT COUNT(*) FROM colors WHERE color = #{color}
+    </select>
+
     <insert id="insertColor" parameterType="project.project.model.Colors">
         INSERT INTO colors (color) VALUES (#{color})
     </insert>

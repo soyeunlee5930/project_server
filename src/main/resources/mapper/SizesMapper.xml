@@ -10,6 +10,11 @@
         SELECT * FROM sizes WHERE id = #{id}
     </select>
 
+    <!-- 사이즈 중복값 확인 -->
+    <select id="countBySize" resultType="int" parameterType="java.lang.Integer">
+        SELECT COUNT(*) FROM sizes WHERE size = #{size}
+    </select>
+
     <insert id="insertSize" parameterType="project.project.model.Sizes">
         INSERT INTO sizes (size) VALUES (#{size})
     </insert>

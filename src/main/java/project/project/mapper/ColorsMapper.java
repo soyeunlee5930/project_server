@@ -11,6 +11,8 @@ public interface ColorsMapper {
 
     Colors getColorById(Integer id);
 
+    int countByColor(String color);
+
     void insertColor(Colors color);
 
     void deleteColor(Integer id);

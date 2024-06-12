@@ -23,7 +23,12 @@ public class SizesController {
     }
 
     @PostMapping("/sizes/add")
-    public ResponseEntity<Integer> insertSize(@RequestBody Sizes size) {
+    public ResponseEntity<String> insertSize(@RequestBody Sizes size) {
+        // 중복값 확인
+        int count = sizesService.countBySize(size.getSize());
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate size");
+        }
         sizesService.insertSize(size);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

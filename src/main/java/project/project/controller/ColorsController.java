@@ -25,6 +25,11 @@ public class ColorsController {
 
     @PostMapping("/colors/add")
     public ResponseEntity<String> insertColor(@RequestBody Colors color) {
+        // 중복값 확인
+        int count = colorsService.countByColor(color.getColor());
+        if (count > 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate color");
+        }
         colorsService.insertColor(color);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
