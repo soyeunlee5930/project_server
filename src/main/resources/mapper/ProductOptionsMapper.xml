@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.ProductOptionsMapper">
+
+    <select id="getAllProductOptions" resultType="project.project.model.ProductOptions">
+        SELECT * FROM product_options;
+    </select>
+
+    <select id="findProductOptionById" resultType="project.project.model.ProductOptions" parameterType="java.lang.Integer">
+        SELECT * FROM product_options WHERE id= #{id}
+    </select>
+
+    <!-- 상품 옵션 중복 확인 -->
+    <select id="checkDuplicate" resultType="int" parameterType="map">
+        SELECT COUNT(*) FROM product_options WHERE product_id = #{productId} AND color_id = #{colorId} AND size_id = #{sizeId}
+    </select>
+
+    <insert id="insertProductOption" parameterType="project.project.model.ProductOptions">
+        INSERT INTO product_options (product_id, color_id, size_id) VALUES (#{productId}, #{colorId}, #{sizeId})
+    </insert>
+
+    <update id="updateProductOption" parameterType="project.project.model.ProductOptions">
+        UPDATE product_options SET color_id = #{colorId}, size_id = #{sizeId} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteProductOption" parameterType="java.lang.Integer">
+        DELETE FROM product_options WHERE id = #{id}
+    </delete>
+
+</mapper>

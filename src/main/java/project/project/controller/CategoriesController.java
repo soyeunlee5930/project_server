@@ -27,7 +27,7 @@ public class CategoriesController {
     public ResponseEntity<Categories> findCategoryById(@PathVariable Integer id) {
         Categories category = categoriesService.findCategoryById(id);
         if (category != null) {
-            return ResponseEntity.ok().body(category);
+            return ResponseEntity.status(HttpStatus.OK).body(category);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
