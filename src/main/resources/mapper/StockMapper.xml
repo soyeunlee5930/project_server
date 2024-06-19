@@ -1,0 +1,25 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.project.mapper.StockMapper">
+
+    <select id="getAllStock" resultType="project.project.model.Stock">
+        SELECT * FROM stock;
+    </select>
+
+    <select id="findStockById" resultType="project.project.model.Stock" parameterType="java.lang.Integer">
+        SELECT * FROM stock WHERE id= #{id}
+    </select>
+
+    <insert id="insertStock" parameterType="project.project.model.Stock">
+        INSERT INTO stock (product_options_id, quantity) VALUES (#{productOptionsId}, #{quantity})
+    </insert>
+
+    <update id="updateStock" parameterType="project.project.model.Stock">
+        UPDATE stock SET quantity = #{quantity} WHERE product_options_id = #{productOptionsId}
+    </update>
+
+    <delete id="deleteStockByProductOptionsId" parameterType="java.lang.Integer">
+        DELETE FROM stock WHERE product_options_id = #{productOptionsId}
+    </delete>
+
+</mapper>

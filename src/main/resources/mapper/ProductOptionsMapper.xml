@@ -10,12 +10,75 @@
         SELECT * FROM product_options WHERE id= #{id}
     </select>
 
+    <select id="getProductOptionsByProductId" resultType="project.project.model.ProductOptions" parameterType="java.lang.Integer">
+        SELECT * FROM product_options WHERE product_id = #{productId}
+    </select>
+
+    <!-- 상품 재고관리페이지(productId기준) : 상품명, 색상명, 사이즈(호수), 재고수량 -->
+    <select id="getProductDetailsByProductId" resultMap="ProductDetailsResultMap" parameterType="java.lang.Integer">
+        SELECT p.id AS product_id, p.product_name, po.id AS product_options_id, c.color, s.size, st.quantity
+        FROM products p
+        JOIN product_options po ON p.id = po.product_id
+        LEFT JOIN stock st ON po.id = st.product_options_id
+        LEFT JOIN colors c ON po.color_id = c.id
+        LEFT JOIN sizes s ON po.size_id = s.id
+        WHERE p.id = #{productId}
+        ORDER BY c.color, s.size;
+    </select>
+
+    <resultMap id="ProductDetailsResultMap" type="project.project.requestParam.ProductDetails">
+        <id property="productId" column="product_id" />
+        <result property="productName" column="product_name" />
+        <result property="productOptionsId" column="product_options_id" />
+        <result property="color" column="color" />
+        <result property="size" column="size" />
+        <result property="quantity" column="quantity" />
+    </resultMap>
+
+    <!-- 상품 재고 수정페이지(productOptionsId기준) : 상품명, 색상명, 사이즈(호수), 재고수량 -->
+    <select id="getProductOptionDetailsByProductOptionsId" resultMap="ProductOptionDetailsResultMap" parameterType="java.lang.Integer">
+        SELECT po.id AS product_options_id,
+        p.id AS product_id,
+        p.product_name,
+        c.id AS color_id,
+        c.color,
+        s.id AS size_id,
+        s.size,
+        st.quantity
+        FROM product_options po
+        JOIN products p ON po.product_id = p.id
+        LEFT JOIN colors c ON po.color_id = c.id
+        LEFT JOIN sizes s ON po.size_id = s.id
+        JOIN stock st ON po.id = st.product_options_id
+        WHERE po.id = #{productOptionsId}
+    </select>
+
+    <resultMap id="ProductOptionDetailsResultMap" type="project.project.requestParam.ProductOptionDetails">
+        <id property="productOptionsId" column="product_options_id" />
+        <result property="productId" column="product_id" />
+        <result property="productName" column="product_name" />
+        <result property="colorId" column="color_id" />
+        <result property="color" column="color" />
+        <result property="sizeId" column="size_id" />
+        <result property="size" column="size" />
+        <result property="quantity" column="quantity" />
+    </resultMap>
+
     <!-- 상품 옵션 중복 확인 -->
     <select id="checkDuplicate" resultType="int" parameterType="map">
         SELECT COUNT(*) FROM product_options WHERE product_id = #{productId} AND color_id = #{colorId} AND size_id = #{sizeId}
     </select>
 
-    <insert id="insertProductOption" parameterType="project.project.model.ProductOptions">
+    <select id="checkDuplicateExcludeId" parameterType="project.project.model.ProductOptions" resultType="int">
+        SELECT COUNT(*)
+        FROM product_options
+        WHERE product_id = #{productId}
+        AND color_id = #{colorId}
+        AND size_id = #{sizeId}
+        AND id != #{id} <!-- 자기 자신 제외 -->
+    </select>
+
+    <insert id="insertProductOption" parameterType="project.project.model.ProductOptions" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product_options (product_id, color_id, size_id) VALUES (#{productId}, #{colorId}, #{sizeId})
     </insert>
 
@@ -25,6 +88,14 @@
 
     <delete id="deleteProductOption" parameterType="java.lang.Integer">
         DELETE FROM product_options WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteProductOptions" parameterType="list">
+        DELETE FROM product_options
+        WHERE id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </delete>
 
 </mapper>
