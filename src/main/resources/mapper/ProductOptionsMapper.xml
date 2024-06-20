@@ -90,10 +90,10 @@
         DELETE FROM product_options WHERE id = #{id}
     </delete>
 
-    <delete id="deleteProductOptions" parameterType="list">
+    <delete id="deleteProductOptions" parameterType="java.util.List">
         DELETE FROM product_options
         WHERE id IN
-        <foreach item="id" collection="list" open="(" separator="," close=")">
+        <foreach item="id" index="index" collection="productOptionsIds" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>

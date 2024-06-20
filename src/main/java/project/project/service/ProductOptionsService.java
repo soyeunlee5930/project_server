@@ -21,16 +21,17 @@ public interface ProductOptionsService {
 
     int checkDuplicate(ProductOptions productOption);
 
-    int checkDuplicateExcludeId(ProductOptions productOption, Integer id);
-
-//    void insertProductOption(ProductOptions productOption);
-
-    void addProductOptionAndStock(ProductOptions productOptions, Stock stock);
+    int checkDuplicateExcludeId(ProductOptions productOption);
 
     void updateProductOption(ProductOptions productOption);
 
-    void updateStock(Stock stock);
-
     void deleteProductOption(Integer id);
-    void deleteProductOptions(@Param("list") List<Integer> ids);
+
+    void deleteProductOptions(@Param("list") List<Integer> productOptionsIds);
+
+    // stock 관련
+    // 상품 옵션 및 재고(수량) 등록
+    void addProductOptionAndStock(ProductOptions productOptions, Stock stock);
+
+    void updateStock(Stock stock);
 }

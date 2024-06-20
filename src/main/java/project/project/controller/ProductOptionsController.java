@@ -111,7 +111,7 @@ public class ProductOptionsController {
             productOption.setSizeId(productOptionRequest.getSizeId());
 
             // 중복값 확인
-            int count = productOptionsService.checkDuplicateExcludeId(productOption, id);
+            int count = productOptionsService.checkDuplicateExcludeId(productOption);
             if (count > 0 ) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("duplicate productOption");
             }

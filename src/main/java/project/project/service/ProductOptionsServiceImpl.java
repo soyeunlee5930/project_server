@@ -52,9 +52,13 @@ public class ProductOptionsServiceImpl implements ProductOptionsService {
     }
 
     @Override
-    public int checkDuplicateExcludeId(ProductOptions productOption, Integer id) {
-        return productOptionsMapper.checkDuplicateExcludeId(productOption, id);
+    public int checkDuplicateExcludeId(ProductOptions productOption) {
+        return productOptionsMapper.checkDuplicateExcludeId(productOption);
     }
+//    @Override
+//    public int checkDuplicateExcludeId(ProductOptions productOption, Integer id) {
+//        return productOptionsMapper.checkDuplicateExcludeId(productOption, id);
+//    }
 
     //    @Override
     //    public void insertProductOption(ProductOptions productOption) {
@@ -90,7 +94,11 @@ public class ProductOptionsServiceImpl implements ProductOptionsService {
 
     @Override
     @Transactional
-    public void deleteProductOptions(List<Integer> ids) {
-        productOptionsMapper.deleteProductOptions(ids);
+    public void deleteProductOptions(List<Integer> productOptionsIds) {
+        // 재고 삭제
+        stockMapper.deleteStockByProductOptionsIds(productOptionsIds);
+
+        // 상품 옵션 삭제
+        productOptionsMapper.deleteProductOptions(productOptionsIds);
     }
 }

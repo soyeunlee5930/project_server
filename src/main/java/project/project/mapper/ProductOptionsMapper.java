@@ -22,12 +22,13 @@ public interface ProductOptionsMapper {
 
     int checkDuplicate(ProductOptions productOption);
 
-    int checkDuplicateExcludeId(ProductOptions productOption, Integer id);
+    int checkDuplicateExcludeId(ProductOptions productOption);
 
     void insertProductOption(ProductOptions productOption);
 
     void updateProductOption(ProductOptions productOption);
 
     void deleteProductOption(Integer id);
-    void deleteProductOptions(@Param("list") List<Integer> ids);
+
+    void deleteProductOptions(@Param("productOptionsIds") List<Integer> productOptionsIds);
 }

@@ -22,4 +22,12 @@
         DELETE FROM stock WHERE product_options_id = #{productOptionsId}
     </delete>
 
+    <!-- 여러 개의 상품 옵션 ID에 해당하는 재고 삭제 -->
+    <delete id="deleteStockByProductOptionsIds" parameterType="java.util.List">
+        DELETE FROM stock WHERE product_options_id IN
+        <foreach item="item" index="index" collection="productOptionsIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
 </mapper>
