@@ -13,7 +13,6 @@ public class Products {
     private int discountRate;
     private int price;
     private int discountPrice;
-    private int quantity;
     private int accumulatedAmount; // 적립금
     private String productCode;
     private int deliveryCountry; // 국내배송(0), 해외배송(1), 국내&해외배송(2)
@@ -73,14 +72,6 @@ public class Products {
 
     public void setDiscountPrice(int discountPrice) {
         this.discountPrice = discountPrice;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public int getAccumulatedAmount() {

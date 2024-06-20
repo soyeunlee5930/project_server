@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.project.mapper.ProductsMapper;
+import project.project.mapper.StockMapper;
 import project.project.model.Products;
 
 import java.util.List;
@@ -12,6 +13,9 @@ import java.util.List;
 public class ProductsServiceImpl implements ProductsService {
     @Autowired
     private ProductsMapper productsMapper;
+
+    @Autowired
+    private StockMapper stockMapper;
 
     @Override
     public List<Products> getAllProducts() {
@@ -38,6 +42,16 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     @Transactional
     public void deleteProduct(Integer id) {
+        // 주어진 제품 ID와 연관된 모든 product_options ID를 반환
+        List<Integer> productOptionsIds = productsMapper.getProductOptionsIdsByProductId(id);
+
+        // product_options 삭제 전 종속된 stock 데이터 삭제
+        stockMapper.deleteStockByProductOptionsIds(productOptionsIds);
+
+        // product_options 데이터 삭제
+        productsMapper.deleteProductOptionsByProductId(id);
+        
+        // 제품 삭제
         productsMapper.deleteProduct(id);
     }
 

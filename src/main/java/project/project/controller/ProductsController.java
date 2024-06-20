@@ -73,7 +73,6 @@ public class ProductsController {
             addProduct.setDiscountRate(product.getDiscountRate());
             addProduct.setPrice(product.getPrice());
             addProduct.setDiscountPrice(product.getDiscountPrice());
-            addProduct.setQuantity(product.getQuantity());
             addProduct.setAccumulatedAmount(product.getAccumulatedAmount());
             addProduct.setProductCode(product.getProductCode());
             addProduct.setDeliveryCountry(product.getDeliveryCountry());
@@ -168,7 +167,6 @@ public class ProductsController {
             existingProduct.setDiscountRate(product.getDiscountRate());
             existingProduct.setPrice(product.getPrice());
             existingProduct.setDiscountPrice(product.getDiscountPrice());
-            existingProduct.setQuantity(product.getQuantity());
             existingProduct.setAccumulatedAmount(product.getAccumulatedAmount());
             existingProduct.setProductCode(product.getProductCode());
             existingProduct.setDeliveryCountry(product.getDeliveryCountry());

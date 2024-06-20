@@ -11,7 +11,6 @@ public class ProductsParam {
     private int discountRate;
     private int price;
     private int discountPrice;
-    private int quantity;
     private int accumulatedAmount;
     private String productCode;
     private int deliveryCountry;
@@ -64,14 +63,6 @@ public class ProductsParam {
 
     public void setDiscountPrice(int discountPrice) {
         this.discountPrice = discountPrice;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public int getAccumulatedAmount() {
