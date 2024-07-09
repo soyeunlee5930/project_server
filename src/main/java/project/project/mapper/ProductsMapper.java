@@ -5,6 +5,7 @@ import project.project.model.Products;
 import project.project.requestParam.ProductList;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductsMapper {
@@ -12,6 +13,12 @@ public interface ProductsMapper {
 
     // main page에 가져오는 상품리스트
     List<ProductList> getProductList();
+
+    // pagination처리한 상품리스트(4개씩 출력)
+    List<ProductList> getProductListWithPagination(Map<String, Object> params);
+
+    // 상품 개수
+    int getTotalProductCount();
 
     Products getProductById(Integer id);
 

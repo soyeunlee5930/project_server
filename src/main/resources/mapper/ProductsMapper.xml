@@ -7,28 +7,7 @@
     </select>
 
     <!-- client main page에서 필요한 productList -->
-    <resultMap id="ProductResultMap" type="project.project.requestParam.ProductList">
-        <result property="id" column="id"/>
-        <result property="productName" column="product_name"/>
-        <result property="categoryId" column="category_id"/>
-        <result property="discountRate" column="discount_rate"/>
-        <result property="price" column="price"/>
-        <result property="discountPrice" column="discount_price"/>
-        <result property="accumulatedAmount" column="accumulated_amount"/>
-        <result property="productCode" column="product_code"/>
-        <result property="deliveryCountry" column="delivery_country"/>
-        <result property="productDescription" column="product_description"/>
-        <result property="thumbnailImageUrl" column="thumnail_image_url"/>
-        <result property="detailImageUrl" column="detail_image_url"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="updatedAt" column="updated_at"/>
-        <result property="categoryName" column="category_name"/>
-        <collection property="subCategoryNames" column="id" select="getSubCategoriesByProductId" />
-        <collection property="options" column="id" select="getProductOptionsByProductId" />
-    </resultMap>
-
-<!--    <select id="getProductList" resultMap="ProductResultMap" parameterType="java.util.Map">-->
-    <select id="getProductList" parameterType="java.util.Map">
+    <select id="getProductList" parameterType="java.util.Map" resultType="project.project.requestParam.ProductList">
         SELECT
             p.id,
             p.product_name,
@@ -62,26 +41,45 @@
         JOIN categories c ON p.category_id = c.id
     </select>
 
-    <!-- SubCategories를 가져오는 쿼리 -->
-    <select id="getSubCategoriesByProductId" resultType="java.lang.String">
-        SELECT sc.sub_category_name
-        FROM sub_categories sc
-        JOIN products p ON sc.category_id = p.category_id
-        WHERE p.id = #{id}
+    <!-- client main page의 products pagination -->
+    <select id="getProductListWithPagination" parameterType="java.util.Map" resultType="project.project.requestParam.ProductList">
+        SELECT
+            p.id,
+            p.product_name,
+            p.category_id,
+            p.discount_rate,
+            p.price,
+            p.discount_price,
+            p.accumulated_amount,
+            p.product_code,
+            p.delivery_country,
+            p.product_description,
+            p.thumnail_image_url,
+            p.detail_image_url,
+            p.created_at,
+            p.updated_at,
+            c.category_name,
+            (SELECT GROUP_CONCAT(sc.sub_category_name)
+            FROM sub_categories sc
+            WHERE sc.category_id = p.category_id) AS subCategoryNames,
+            (SELECT JSON_ARRAYAGG(JSON_OBJECT(
+            'optionId', po.id,
+            'color', clr.color,
+            'size', sz.size,
+            'quantity', st.quantity))
+            FROM product_options po
+            LEFT JOIN colors clr ON po.color_id = clr.id
+            LEFT JOIN sizes sz ON po.size_id = sz.id
+            LEFT JOIN stock st ON po.id = st.product_options_id
+            WHERE po.product_id = p.id) AS options
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+        LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
-    <!-- Product Options를 가져오는 쿼리 -->
-    <select id="getProductOptionsByProductId" resultType="project.project.model.ProductListOption">
-        SELECT
-        po.id AS option_id,
-        clr.color,
-        sz.size,
-        st.quantity
-        FROM product_options po
-        LEFT JOIN colors clr ON po.color_id = clr.id
-        LEFT JOIN sizes sz ON po.size_id = sz.id
-        LEFT JOIN stock st ON po.id = st.product_options_id
-        WHERE po.product_id = #{id}
+    <!-- 총 상품 수를 가져오는 쿼리 -->
+    <select id="getTotalProductCount" resultType="int">
+        SELECT COUNT(*) FROM products
     </select>
 
     <select id="getProductById" resultType="project.project.model.Products" parameterType="java.lang.Integer">

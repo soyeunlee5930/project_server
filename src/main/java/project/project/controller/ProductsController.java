@@ -18,7 +18,9 @@ import project.project.service.ProductsService;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/admins")
@@ -41,6 +43,23 @@ public class ProductsController {
     public ResponseEntity<List<ProductList>> getProductList() {
         List<ProductList> list = productsService.getProductList();
         return ResponseEntity.status(HttpStatus.OK).body(list);
+    }
+
+    // pagination -> page : 페이지 번호(시작값 0), size : 페이지당 상품 개수(기본값 4)
+    @GetMapping("/products/paginated")
+    public ResponseEntity<Map<String, Object>> getProductsWithPagination(@RequestParam(defaultValue = "0") int page,
+                                                                       @RequestParam(defaultValue = "4") int size) {
+        List<ProductList> products = productsService.getProductListWithPagination(page, size);
+        int totalProductCount = productsService.getTotalProductCount();
+        int totalPages = (int) Math.ceil((double) totalProductCount / size);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("products", products);
+        response.put("currentPage", page);
+        response.put("totalPages", totalPages);
+        response.put("totalProducts", totalProductCount);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/products/{id}")

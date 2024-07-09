@@ -8,7 +8,9 @@ import project.project.mapper.StockMapper;
 import project.project.model.Products;
 import project.project.requestParam.ProductList;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {
@@ -26,6 +28,20 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public List<ProductList> getProductList() {
         return productsMapper.getProductList();
+    }
+
+    @Override
+    public List<ProductList> getProductListWithPagination(int page, int size) {
+        int offset = (page - 1) * size;
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageSize", size);
+        params.put("offset", offset);
+        return productsMapper.getProductListWithPagination(params);
+    }
+
+    @Override
+    public int getTotalProductCount() {
+        return productsMapper.getTotalProductCount();
     }
 
     @Override

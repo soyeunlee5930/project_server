@@ -11,6 +11,12 @@ public interface ProductsService {
     // main page에 가져오는 상품리스트
     List<ProductList> getProductList();
 
+    // main page - products pagination
+    List<ProductList> getProductListWithPagination(int page, int size);
+    
+    // 상품 개수
+    int getTotalProductCount();
+
     Products getProductById(Integer id);
 
     void insertProduct(Products product);
