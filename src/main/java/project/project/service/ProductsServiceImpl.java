@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import project.project.mapper.ProductsMapper;
 import project.project.mapper.StockMapper;
 import project.project.model.Products;
+import project.project.requestParam.ProductList;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class ProductsServiceImpl implements ProductsService {
     @Override
     public List<Products> getAllProducts() {
         return productsMapper.getAllProducts();
+    }
+
+    @Override
+    public List<ProductList> getProductList() {
+        return productsMapper.getProductList();
     }
 
     @Override

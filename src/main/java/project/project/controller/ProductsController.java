@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.project.error.ErrorCode;
 import project.project.handler.CustomException;
+import project.project.requestParam.ProductList;
 import project.project.requestParam.ProductsParam;
 import project.project.s3.S3Uploader;
 import project.project.model.Products;
@@ -34,6 +35,12 @@ public class ProductsController {
     public ResponseEntity<List<Products>> getAllProducts() {
         List<Products> products = productsService.getAllProducts();
         return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
+
+    @GetMapping("/product-list")
+    public ResponseEntity<List<ProductList>> getProductList() {
+        List<ProductList> list = productsService.getProductList();
+        return ResponseEntity.status(HttpStatus.OK).body(list);
     }
 
     @GetMapping("/products/{id}")

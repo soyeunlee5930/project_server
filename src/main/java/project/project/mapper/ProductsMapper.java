@@ -2,12 +2,16 @@ package project.project.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import project.project.model.Products;
+import project.project.requestParam.ProductList;
 
 import java.util.List;
 
 @Mapper
 public interface ProductsMapper {
     List<Products> getAllProducts();
+
+    // main page에 가져오는 상품리스트
+    List<ProductList> getProductList();
 
     Products getProductById(Integer id);
 
